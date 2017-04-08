@@ -1,0 +1,9 @@
+msg {
+  id:2047
+  msg_name: "example"
+  can_data {
+    frame {
+      type: INT 
+    }
+  }
+}
