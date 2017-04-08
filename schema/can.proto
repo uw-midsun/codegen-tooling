@@ -1,0 +1,29 @@
+syntax = "proto2";
+
+// NEXT TAG = 4
+message Dataframe {
+  enum Type { INT = 0; }
+
+  optional Type type = 1;
+  optional uint32 start = 2 [ default = 0 ];
+  optional uint32 end = 3 [ default = 63 ];
+}
+
+// NEXT TAG = 3
+message CanData {
+  optional uint64 data = 1;
+  repeated Dataframe frame = 2;
+}
+
+// NEXT TAG = 7
+message CanMsg {
+  optional uint32 id = 1;     // 0-2047 only
+  optional uint32 source = 2; // 0-15 only
+  optional bool msg_type = 3;
+  optional uint32 global_msg_id = 4; // 0-63 only
+  optional string msg_name = 5;
+  optional CanData can_data = 6;
+}
+
+// NEXT TAG = 2
+message CanSchema { repeated CanMsg msg = 1; }
