@@ -3,7 +3,7 @@ msg {
   msg_name: "example"
   can_data {
     frame {
-      type: INT 
+      type: UINT64
     }
   }
 }

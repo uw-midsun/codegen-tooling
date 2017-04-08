@@ -18,8 +18,8 @@ _sym_db = _symbol_database.Default()
 DESCRIPTOR = _descriptor.FileDescriptor(
   name='can.proto',
   package='',
-  syntax='proto2',
-  serialized_pb=_b('\n\tcan.proto\"^\n\tDataframe\x12\x1d\n\x04type\x18\x01 \x01(\x0e\x32\x0f.Dataframe.Type\x12\x10\n\x05start\x18\x02 \x01(\r:\x01\x30\x12\x0f\n\x03\x65nd\x18\x03 \x01(\r:\x02\x36\x33\"\x0f\n\x04Type\x12\x07\n\x03INT\x10\x00\"2\n\x07\x43\x61nData\x12\x0c\n\x04\x64\x61ta\x18\x01 \x01(\x04\x12\x19\n\x05\x66rame\x18\x02 \x03(\x0b\x32\n.Dataframe\"{\n\x06\x43\x61nMsg\x12\n\n\x02id\x18\x01 \x01(\r\x12\x0e\n\x06source\x18\x02 \x01(\r\x12\x10\n\x08msg_type\x18\x03 \x01(\x08\x12\x15\n\rglobal_msg_id\x18\x04 \x01(\r\x12\x10\n\x08msg_name\x18\x05 \x01(\t\x12\x1a\n\x08\x63\x61n_data\x18\x06 \x01(\x0b\x32\x08.CanData\"!\n\tCanSchema\x12\x14\n\x03msg\x18\x01 \x03(\x0b\x32\x07.CanMsg')
+  syntax='proto3',
+  serialized_pb=_b('\n\tcan.proto\"Z\n\tDataframe\x12\x1d\n\x04type\x18\x01 \x01(\x0e\x32\x0f.Dataframe.Type\x12\r\n\x05start\x18\x02 \x01(\r\x12\x0b\n\x03\x65nd\x18\x03 \x01(\r\"\x12\n\x04Type\x12\n\n\x06UINT64\x10\x00\"2\n\x07\x43\x61nData\x12\x0c\n\x04\x64\x61ta\x18\x01 \x01(\x04\x12\x19\n\x05\x66rame\x18\x02 \x03(\x0b\x32\n.Dataframe\"{\n\x06\x43\x61nMsg\x12\n\n\x02id\x18\x01 \x01(\r\x12\x0e\n\x06source\x18\x02 \x01(\r\x12\x10\n\x08msg_type\x18\x03 \x01(\x08\x12\x15\n\rglobal_msg_id\x18\x04 \x01(\r\x12\x10\n\x08msg_name\x18\x05 \x01(\t\x12\x1a\n\x08\x63\x61n_data\x18\x06 \x01(\x0b\x32\x08.CanData\"!\n\tCanSchema\x12\x14\n\x03msg\x18\x01 \x03(\x0b\x32\x07.CanMsgb\x06proto3')
 )
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
@@ -32,14 +32,14 @@ _DATAFRAME_TYPE = _descriptor.EnumDescriptor(
   file=DESCRIPTOR,
   values=[
     _descriptor.EnumValueDescriptor(
-      name='INT', index=0, number=0,
+      name='UINT64', index=0, number=0,
       options=None,
       type=None),
   ],
   containing_type=None,
   options=None,
-  serialized_start=92,
-  serialized_end=107,
+  serialized_start=85,
+  serialized_end=103,
 )
 _sym_db.RegisterEnumDescriptor(_DATAFRAME_TYPE)
 
@@ -61,14 +61,14 @@ _DATAFRAME = _descriptor.Descriptor(
     _descriptor.FieldDescriptor(
       name='start', full_name='Dataframe.start', index=1,
       number=2, type=13, cpp_type=3, label=1,
-      has_default_value=True, default_value=0,
+      has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
       name='end', full_name='Dataframe.end', index=2,
       number=3, type=13, cpp_type=3, label=1,
-      has_default_value=True, default_value=63,
+      has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
@@ -81,12 +81,12 @@ _DATAFRAME = _descriptor.Descriptor(
   ],
   options=None,
   is_extendable=False,
-  syntax='proto2',
+  syntax='proto3',
   extension_ranges=[],
   oneofs=[
   ],
   serialized_start=13,
-  serialized_end=107,
+  serialized_end=103,
 )
 
 
@@ -119,12 +119,12 @@ _CANDATA = _descriptor.Descriptor(
   ],
   options=None,
   is_extendable=False,
-  syntax='proto2',
+  syntax='proto3',
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=109,
-  serialized_end=159,
+  serialized_start=105,
+  serialized_end=155,
 )
 
 
@@ -185,12 +185,12 @@ _CANMSG = _descriptor.Descriptor(
   ],
   options=None,
   is_extendable=False,
-  syntax='proto2',
+  syntax='proto3',
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=161,
-  serialized_end=284,
+  serialized_start=157,
+  serialized_end=280,
 )
 
 
@@ -216,12 +216,12 @@ _CANSCHEMA = _descriptor.Descriptor(
   ],
   options=None,
   is_extendable=False,
-  syntax='proto2',
+  syntax='proto3',
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=286,
-  serialized_end=319,
+  serialized_start=282,
+  serialized_end=315,
 )
 
 _DATAFRAME.fields_by_name['type'].enum_type = _DATAFRAME_TYPE
