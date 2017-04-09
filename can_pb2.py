@@ -19,7 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   name='can.proto',
   package='',
   syntax='proto3',
-  serialized_pb=_b('\n\tcan.proto\"Z\n\tDataframe\x12\x1d\n\x04type\x18\x01 \x01(\x0e\x32\x0f.Dataframe.Type\x12\r\n\x05start\x18\x02 \x01(\r\x12\x0b\n\x03\x65nd\x18\x03 \x01(\r\"\x12\n\x04Type\x12\n\n\x06UINT64\x10\x00\"2\n\x07\x43\x61nData\x12\x0c\n\x04\x64\x61ta\x18\x01 \x01(\x04\x12\x19\n\x05\x66rame\x18\x02 \x03(\x0b\x32\n.Dataframe\"{\n\x06\x43\x61nMsg\x12\n\n\x02id\x18\x01 \x01(\r\x12\x0e\n\x06source\x18\x02 \x01(\r\x12\x10\n\x08msg_type\x18\x03 \x01(\x08\x12\x15\n\rglobal_msg_id\x18\x04 \x01(\r\x12\x10\n\x08msg_name\x18\x05 \x01(\t\x12\x1a\n\x08\x63\x61n_data\x18\x06 \x01(\x0b\x32\x08.CanData\"!\n\tCanSchema\x12\x14\n\x03msg\x18\x01 \x03(\x0b\x32\x07.CanMsgb\x06proto3')
+  serialized_pb=_b('\n\tcan.proto\"Z\n\tDataframe\x12\x1d\n\x04type\x18\x01 \x01(\x0e\x32\x0f.Dataframe.Type\x12\r\n\x05start\x18\x02 \x01(\r\x12\x0b\n\x03\x65nd\x18\x03 \x01(\r\"\x12\n\x04Type\x12\n\n\x06UINT64\x10\x00\"2\n\x07\x43\x61nData\x12\x0c\n\x04\x64\x61ta\x18\x01 \x01(\x04\x12\x19\n\x05\x66rame\x18\x02 \x03(\x0b\x32\n.Dataframe\"\x9b\x02\n\x06\x43\x61nMsg\x12\n\n\x02id\x18\x01 \x01(\r\x12\x1e\n\x06source\x18\x02 \x01(\x0e\x32\x0e.CanMsg.Source\x12\x10\n\x08msg_type\x18\x03 \x01(\x08\x12\x15\n\rglobal_msg_id\x18\x04 \x01(\r\x12\x10\n\x08msg_name\x18\x05 \x01(\t\x12\x1a\n\x08\x63\x61n_data\x18\x06 \x01(\x0b\x32\x08.CanData\"\x8d\x01\n\x06Source\x12\n\n\x06PLUTUS\x10\x00\x12\t\n\x05\x43HAOS\x10\x01\x12\r\n\tTELEMETRY\x10\x02\x12\n\n\x06LIGHTS\x10\x03\x12\x14\n\x10MOTOR_CONTROLLER\x10\x04\x12\n\n\x06THEMIS\x10\x05\x12\x10\n\x0cRASPBERRY_PI\x10\x06\x12\x0e\n\nMPPT_FRONT\x10\x07\x12\r\n\tMPPT_REAR\x10\x08\"!\n\tCanSchema\x12\x14\n\x03msg\x18\x01 \x03(\x0b\x32\x07.CanMsgb\x06proto3')
 )
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
@@ -42,6 +42,56 @@ _DATAFRAME_TYPE = _descriptor.EnumDescriptor(
   serialized_end=103,
 )
 _sym_db.RegisterEnumDescriptor(_DATAFRAME_TYPE)
+
+_CANMSG_SOURCE = _descriptor.EnumDescriptor(
+  name='Source',
+  full_name='CanMsg.Source',
+  filename=None,
+  file=DESCRIPTOR,
+  values=[
+    _descriptor.EnumValueDescriptor(
+      name='PLUTUS', index=0, number=0,
+      options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='CHAOS', index=1, number=1,
+      options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='TELEMETRY', index=2, number=2,
+      options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='LIGHTS', index=3, number=3,
+      options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='MOTOR_CONTROLLER', index=4, number=4,
+      options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='THEMIS', index=5, number=5,
+      options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='RASPBERRY_PI', index=6, number=6,
+      options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='MPPT_FRONT', index=7, number=7,
+      options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='MPPT_REAR', index=8, number=8,
+      options=None,
+      type=None),
+  ],
+  containing_type=None,
+  options=None,
+  serialized_start=300,
+  serialized_end=441,
+)
+_sym_db.RegisterEnumDescriptor(_CANMSG_SOURCE)
 
 
 _DATAFRAME = _descriptor.Descriptor(
@@ -144,7 +194,7 @@ _CANMSG = _descriptor.Descriptor(
       options=None),
     _descriptor.FieldDescriptor(
       name='source', full_name='CanMsg.source', index=1,
-      number=2, type=13, cpp_type=3, label=1,
+      number=2, type=14, cpp_type=8, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
@@ -182,6 +232,7 @@ _CANMSG = _descriptor.Descriptor(
   ],
   nested_types=[],
   enum_types=[
+    _CANMSG_SOURCE,
   ],
   options=None,
   is_extendable=False,
@@ -189,8 +240,8 @@ _CANMSG = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=157,
-  serialized_end=280,
+  serialized_start=158,
+  serialized_end=441,
 )
 
 
@@ -220,14 +271,16 @@ _CANSCHEMA = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=282,
-  serialized_end=315,
+  serialized_start=443,
+  serialized_end=476,
 )
 
 _DATAFRAME.fields_by_name['type'].enum_type = _DATAFRAME_TYPE
 _DATAFRAME_TYPE.containing_type = _DATAFRAME
 _CANDATA.fields_by_name['frame'].message_type = _DATAFRAME
+_CANMSG.fields_by_name['source'].enum_type = _CANMSG_SOURCE
 _CANMSG.fields_by_name['can_data'].message_type = _CANDATA
+_CANMSG_SOURCE.containing_type = _CANMSG
 _CANSCHEMA.fields_by_name['msg'].message_type = _CANMSG
 DESCRIPTOR.message_types_by_name['Dataframe'] = _DATAFRAME
 DESCRIPTOR.message_types_by_name['CanData'] = _CANDATA

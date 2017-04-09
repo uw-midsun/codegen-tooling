@@ -17,8 +17,20 @@ message CanData {
 
 // NEXT TAG = 7
 message CanMsg {
+  enum Source {
+    PLUTUS = 0;
+    CHAOS = 1;
+    TELEMETRY = 2;
+    LIGHTS = 3;
+    MOTOR_CONTROLLER = 4;
+    THEMIS = 5;
+    RASPBERRY_PI = 6;
+    MPPT_FRONT = 7;
+    MPPT_REAR = 8;
+  }
+  
   uint32 id = 1;     // 0-2047 only
-  uint32 source = 2; // 0-15 only
+  Source source = 2; // 0-15 only
   bool msg_type = 3;
   uint32 global_msg_id = 4; // 0-63 only
   string msg_name = 5;
