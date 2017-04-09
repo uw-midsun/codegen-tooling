@@ -51,12 +51,15 @@ def parse_can_message_enum():
         messages[i] = None
     can_messages = read_protobuf_data('can_messages.asciipb') # todo change
     for can_message in can_messages:
-        if validator.valid_can_id(can_message.id) == False:
+        identifier = to_identifier(can_message.msg_name)
+        if validator.valid_can_id(can_message.id) is False:
             raise Exception('Invalid CAN id')
-        if messages[can_message.id] == None:
-            messages[can_message.id] = to_identifier(can_message.msg_name)
-        else:
+        if messages[can_message.id] != None:
             raise Exception('Duplicate CAN id %s' % can_message.id)
+        if identifier in messages.values():
+            raise Exception('Duplicate message name %s' % can_message.msg_name)
+        messages[can_message.id] = identifier
+
     return messages
 
 

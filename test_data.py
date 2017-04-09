@@ -56,5 +56,35 @@ class TestDataMethods(unittest.TestCase):
             data.parse_can_message_enum()
 
 
+    @mock.patch("data.open")
+    def test_parse_can_message_enum_duplicate_name(self, mock_open):
+        ascii_protobuf = """
+        msg {
+            id:1
+            msg_name: "some name"
+            can_data {
+                frame {
+                    type: UINT64
+                }
+            }
+        }
+
+        msg {
+            id:3
+            msg_name: "some name"
+            can_data {
+                frame {
+                    type: UINT64
+                }
+            }
+        }
+        """
+        mock_open.side_effect = [
+            mock.mock_open(read_data=ascii_protobuf).return_value
+        ]
+        with self.assertRaises(Exception):
+            data.parse_can_message_enum()
+
+
 if __name__ == '__main__':
     unittest.main()
