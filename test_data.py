@@ -6,7 +6,7 @@ import data
 class TestDataMethods(unittest.TestCase):
     @mock.patch("data.open")
     def test_parse_can_message_enum_invalid_can_id(self, mock_open):
-        ASCII_PROTOBUF = """
+        ascii_protobuf = """
         msg {
             id:300
             msg_name: "can id over 128"
@@ -18,7 +18,7 @@ class TestDataMethods(unittest.TestCase):
         }
         """
         mock_open.side_effect = [
-            mock.mock_open(read_data=ASCII_PROTOBUF).return_value
+            mock.mock_open(read_data=ascii_protobuf).return_value
         ]
         with self.assertRaises(Exception):
             data.parse_can_message_enum()
@@ -26,7 +26,7 @@ class TestDataMethods(unittest.TestCase):
 
     @mock.patch("data.open")
     def test_parse_can_message_enum_duplicate_can_id(self, mock_open):
-        ASCII_PROTOBUF = """
+        ascii_protobuf = """
         msg {
             id:1
             msg_name: "can message 1"
@@ -48,11 +48,11 @@ class TestDataMethods(unittest.TestCase):
         }
         """
         mock_open.side_effect = [
-            mock.mock_open(read_data=ASCII_PROTOBUF).return_value
+            mock.mock_open(read_data=ascii_protobuf).return_value
         ]
         with self.assertRaises(Exception):
             data.parse_can_message_enum()
 
+
 if __name__ == '__main__':
     unittest.main()
-
