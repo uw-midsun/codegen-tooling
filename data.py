@@ -36,7 +36,7 @@ def parse_can_device_enum():
         a dictionary of CAN source devices and their names
     """
     can_devices = {}
-    for key in xrange(NUM_CAN_DEVICES):
+    for key in range(NUM_CAN_DEVICES):
         can_devices[key] = None
     for name, value in can_pb2.CanMsg.Source.items():
         can_devices[value] = name
@@ -47,7 +47,7 @@ def parse_can_message_enum():
     """Parses CAN messages into dictionary
     """
     messages = {}
-    for i in xrange(128):
+    for i in range(128):
         messages[i] = None
     can_messages = read_protobuf_data('can_messages.asciipb') # todo change
     for can_message in can_messages:
