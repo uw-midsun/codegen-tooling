@@ -17,7 +17,7 @@ message CanData {
 
 // NEXT TAG = 7
 message CanMsg {
-  enum Source {
+  enum Source { // TODO: decide on these
     PLUTUS = 0;
     CHAOS = 1;
     TELEMETRY = 2;
