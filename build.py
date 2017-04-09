@@ -35,7 +35,13 @@ def main():
 
 
 def add_options(parser):
-    """Add
+    """Add command-line flags
+
+    Args:
+        parser: an ArgumentParser
+
+    Returns:
+        None
     """
     parser.add_argument('-o', '--output', dest='output_dir', action='store',
                         default='out', help='output directory')
