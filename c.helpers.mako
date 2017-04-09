@@ -16,14 +16,14 @@ Args:
   % for key, value in data.items():
     % if value != None:
       % if key == 0:
-        ${value} = 0,
+        ${prefix}_${value} = 0,
       % else:
-        ${value},
+        ${prefix}_${value},
       % endif
     % else:
       ${prefix}_DUMMY_${dummy_count},
     % endif
     <% dummy_count = dummy_count + 1 %> \
   % endfor
-  NUM_${prefix} 
+  NUM_${prefix} \
 </%def>
