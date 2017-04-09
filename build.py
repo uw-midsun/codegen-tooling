@@ -26,7 +26,6 @@ def main():
         add_options(parser)
         options = parser.parse_args()
 
-        #os.getenv('OUT_DIR', BASE) # change to read flags
         for template in get_templates(BASE, PATTERN):
             code = render(template, __file__=template)
             write(options.output_dir, get_template_name(os.path.basename(template)), code)
