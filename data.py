@@ -72,5 +72,4 @@ def to_identifier(name):
     Returns:
         a string in snake case
     """
-    name = name.replace(' ', '_')
-    return name.upper()
+    return name.replace(' ', '_').upper()
