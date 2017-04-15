@@ -28,7 +28,7 @@ def main():
 
         for template in get_templates(BASE, PATTERN):
             code = render(template, __file__=template)
-            write(options.output_dir, get_template_name(os.path.basename(template)), code)
+            write(options.output_dir, os.path.basename(template).replace('mako.', ''), code)
     except Exception as e:
         abort('Error: %s' % e)
 
@@ -63,18 +63,6 @@ def get_templates(base, pattern):
         for filename in fnmatch.filter(filenames, pattern):
             matches.append(os.path.join(root, filename))
     return matches
-
-
-def get_template_name(template):
-    """Get the template name
-
-    Args:
-        template: the name of the template file
-
-    Returns:
-        the output file name
-    """
-    return template.replace('mako.', '')
 
 
 def render(filename, **context):
