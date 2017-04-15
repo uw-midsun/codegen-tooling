@@ -27,7 +27,7 @@ def main():
         options = parser.parse_args()
 
         for template in get_templates(BASE, PATTERN):
-            code = render(template, __file__=template)
+            code = render(template, __file__=template, options=options)
             write(options.output_dir, os.path.basename(template).replace('mako.', ''), code)
     except Exception as e:
         abort('Error: %s' % e)

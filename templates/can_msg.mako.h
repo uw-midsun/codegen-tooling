@@ -8,6 +8,6 @@ typedef enum {
 
 // For setting the CAN message ID
 typedef enum {
-  <% can_messages = parse_can_message_enum() %>
+  <% can_messages = parse_can_message_enum(options.filename) %>
   ${helpers.generate_enum(can_messages, 'CAN_MESSAGE')}
 } CanMessage;

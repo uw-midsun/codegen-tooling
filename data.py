@@ -43,12 +43,17 @@ def parse_can_device_enum():
     return can_devices
 
 
-def parse_can_message_enum():
+def parse_can_message_enum(can_messages_file):
     """Parses CAN messages into dictionary
+
+    Args:
+        string: a string with the CAN message file name
+
+    Returns:
+        a dictionary of CAN messages
     """
     messages = defaultdict(lambda : None)
-
-    can_messages = read_protobuf_data('can_messages.asciipb') # todo change
+    can_messages = read_protobuf_data(can_messages_file)
     for can_message in can_messages:
         identifier = to_identifier(can_message.msg_name)
         if validator.valid_can_id(can_message.id) is False:
