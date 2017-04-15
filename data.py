@@ -5,6 +5,8 @@ from __future__ import absolute_import, division, print_function, unicode_litera
 import can_pb2
 import validator
 
+from collections import defaultdict
+
 from google.protobuf import text_format
 
 import re
@@ -35,9 +37,7 @@ def parse_can_device_enum():
     Returns:
         a dictionary of CAN source devices and their names
     """
-    can_devices = {}
-    for key in range(NUM_CAN_DEVICES):
-        can_devices[key] = None
+    can_devices = defaultdict(lambda : None)
     for name, value in can_pb2.CanMsg.Source.items():
         can_devices[value] = name
     return can_devices
@@ -46,9 +46,8 @@ def parse_can_device_enum():
 def parse_can_message_enum():
     """Parses CAN messages into dictionary
     """
-    messages = {}
-    for i in range(128):
-        messages[i] = None
+    messages = defaultdict(lambda : None)
+
     can_messages = read_protobuf_data('can_messages.asciipb') # todo change
     for can_message in can_messages:
         identifier = to_identifier(can_message.msg_name)
