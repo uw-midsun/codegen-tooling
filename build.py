@@ -87,8 +87,8 @@ def render(filename, **context):
         # Uncomment to debug generated Python code:
         # write("/tmp", "mako_%s.py" % os.path.basename(filename), template.code)
         return template.render(**context).encode('utf8')
-    except:
-        abort(exceptions.text_error_template().render().encode('utf8'))
+    except Exception as e:
+        abort('ERROR: %s' % e)
 
 
 def abort(message):
@@ -100,7 +100,7 @@ def abort(message):
     Returns:
         None
     """
-    sys.stderr.write(message + b"\n".decode('utf-8'))
+    sys.stderr.write(message + "\n")
     sys.exit(1)
 
 

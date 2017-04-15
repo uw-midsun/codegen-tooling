@@ -23,8 +23,11 @@ def read_protobuf_data(filename):
         a list of Pb values
     """
     can_messages = can_pb2.CanSchema()
-    with open(filename, 'r') as asciipb:
-        text_format.Merge(asciipb.read(), can_messages)
+    try:
+        with open(filename, 'r') as asciipb:
+            text_format.Merge(asciipb.read(), can_messages)
+    except Exception:
+        raise Exception('Could not parse ASCII Protobuf file %s' % filename)
     return can_messages.msg
 
 
