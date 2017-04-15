@@ -28,10 +28,10 @@ protoc -I=schema --python_out=. schema/can.proto
 To add a new dependency, ``pip install $dependency && pip freeze | grep -i $dependency >> requirements.txt``
 
 ## Requirements
-* Python 2.7+
+* Python 2.7+ (or Python 3.3+)
 * [pip](https://pip.pypa.io/en/stable/installing/)
 * [virtualenv](https://virtualenv.pypa.io/en/stable/installation/)
 * protoc 3.0+ (if you're compiling protobufs)
 * clang-format
 
-**Note**: The protobuf library seems not to handle unicode literals very well for Python 3.0 - 3.3&mdash;as such, we do not support those versions.
+**Note**: The protobuf library seems not to handle unicode literals very well for Python 3.0 - 3.2&mdash;as such, we do not support those versions.
