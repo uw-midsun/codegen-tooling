@@ -1,0 +1,23 @@
+notifications:
+  email: false
+
+language: python
+
+python:
+  - "2.7"
+  - "3.3"
+  - "3.4"
+
+# enable "Build pushes" and "Build pull requests" in Travis CI
+# - pull requests will always be built
+# - only build pushes to master
+branches:
+  only:
+    - master
+
+install:
+  - pip install -r requirements.txt
+
+script:
+  - python -m unittest discover
+  - python build.py
