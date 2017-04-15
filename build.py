@@ -114,7 +114,8 @@ def write(directory, filename, content):
     """
     if not os.path.exists(directory):
         os.makedirs(directory)
-    open(os.path.join(directory, filename), 'wb').write(content)
+    with open(os.path.join(directory, filename), 'wb') as outfile:
+        outfile.write(content)
 
 
 if __name__ == "__main__":
