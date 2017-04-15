@@ -26,6 +26,9 @@ def main():
         add_options(parser)
         options = parser.parse_args()
 
+        if os.path.isfile(options.filename) is False:
+            raise Exception('The given file %s could not be found' % options.filename)
+
         for template in get_templates(BASE, PATTERN):
             code = render(template, __file__=template, options=options)
             write(options.output_dir, os.path.basename(template).replace('mako.', ''), code)
@@ -97,7 +100,7 @@ def abort(message):
     Returns:
         None
     """
-    sys.stderr.write(message + b"\n")
+    sys.stderr.write(message + b"\n".decode('utf-8'))
     sys.exit(1)
 
 
