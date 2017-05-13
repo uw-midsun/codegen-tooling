@@ -10,7 +10,7 @@ from mako import exceptions
 from mako.lookup import TemplateLookup
 from mako.template import Template
 
-import can_pb2
+import can.can_pb2 as can_pb2
 import data
 
 BASE = os.path.dirname(os.path.abspath(__file__).replace('\\', '/'))

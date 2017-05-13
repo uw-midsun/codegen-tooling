@@ -2,7 +2,7 @@
 """
 from __future__ import absolute_import, division, print_function, unicode_literals
 
-import can_pb2
+import can.can_pb2 as can_pb2
 import validator
 
 from collections import defaultdict
