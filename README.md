@@ -1,4 +1,7 @@
 # codegen-tooling
+
+[![Build Status](https://travis-ci.org/uw-midsun/codegen-tooling.svg?branch=master)](https://travis-ci.org/uw-midsun/codegen-tooling)
+
 Assorted code generation utilities and tooling
 
 ## Getting Started
