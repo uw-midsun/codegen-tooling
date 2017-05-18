@@ -25,7 +25,7 @@ If you need to generate a new protobuf file
 
 ```bash
 cd codegen-tooling/
-protoc -I=schema --python_out=can schema/can.proto
+protoc -I=schema --python_out=. schema/can.proto
 ```
 
 To add a new dependency, ``pip install $dependency && pip freeze | grep -i $dependency >> requirements.txt``
