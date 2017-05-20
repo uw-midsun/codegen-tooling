@@ -31,7 +31,7 @@ message CanMsg {
   
   uint32 id = 1;     // 0-2047 only
   Source source = 2; // 0-15 only
-  bool msg_type = 3;
+  bool is_ack = 3;
   uint32 global_msg_id = 4; // 0-63 only
   string msg_name = 5;
   CanData can_data = 6;

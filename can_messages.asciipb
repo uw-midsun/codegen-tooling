@@ -239,7 +239,7 @@ msg {
 msg {
   id:23
   msg_name: "heartbeat response"
-  msg_type: true
+  is_ack: true
 }
 
 msg {
