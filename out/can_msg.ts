@@ -1,6 +1,5 @@
 // For setting the CAN device
 export const enum CanDevice {
-
   CAN_DEVICE_PLUTUS = 0,
   CAN_DEVICE_CHAOS = 1,
   CAN_DEVICE_TELEMETRY = 2,
@@ -15,7 +14,6 @@ export const enum CanDevice {
 
 // For setting the CAN message ID
 export const enum CanDevice {
-
   CAN_MESSAGE_BPS_FAULT = 0,
   CAN_MESSAGE_MOTOR_DRIVE = 1,
   CAN_MESSAGE_MOTOR_CRUISE = 2,

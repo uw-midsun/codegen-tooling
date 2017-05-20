@@ -11,7 +11,7 @@ Args:
     data: a dictionary of data in the range (empty values should have a value of None)
     prefix: the prefix to use
 </%doc>
-<%def name="generate_enum(data, prefix)">
+<%def name="generate_enum(data, prefix)"> \
   % for key, value in data.items():
     % if value != None:
       ${prefix}_${value} = ${key},

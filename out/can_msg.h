@@ -2,7 +2,6 @@
 
 // For setting the CAN device
 typedef enum {
-
   CAN_DEVICE_PLUTUS = 0,
   CAN_DEVICE_CHAOS = 1,
   CAN_DEVICE_TELEMETRY = 2,
@@ -17,7 +16,6 @@ typedef enum {
 
 // For setting the CAN message ID
 typedef enum {
-
   CAN_MESSAGE_BPS_FAULT = 0,
   CAN_MESSAGE_MOTOR_DRIVE = 1,
   CAN_MESSAGE_MOTOR_CRUISE = 2,
