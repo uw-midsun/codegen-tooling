@@ -10,11 +10,15 @@ from mako import exceptions
 from mako.lookup import TemplateLookup
 from mako.template import Template
 
+import sys
+import os
+sys.path.append(os.path.abspath('../genfiles'))
 import can_pb2
 import data
 
-BASE = os.path.dirname(os.path.abspath(__file__).replace('\\', '/'))
-sys.path.insert(0, BASE)  # for importing `data.py`
+# mostly for importing templates
+BASE = os.path.dirname(os.path.abspath(__file__ + '/../').replace('\\', '/'))
+sys.path.insert(0, BASE)
 PATTERN = '*.mako.*'
 
 

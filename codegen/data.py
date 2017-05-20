@@ -2,6 +2,9 @@
 """
 from __future__ import absolute_import, division, print_function, unicode_literals
 
+import sys
+import os
+sys.path.append(os.path.abspath('../genfiles'))
 import can_pb2
 import validator
 
