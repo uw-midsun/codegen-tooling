@@ -1,3 +1,4 @@
+#pragma once
 
 // For setting the CAN device
 typedef enum {
