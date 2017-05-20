@@ -9,7 +9,8 @@ Assorted code generation utilities and tooling
 virtualenv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
-python build.py && clang-format -i out/can_msg.h
+cd codegen/
+python build.py --output=../out/ --filename=../can_messages.asciipb && clang-format -i ../out/can_msg.h
 ```
 
 Or if you use ``pyenv``
@@ -18,14 +19,15 @@ Or if you use ``pyenv``
 pyenv virtualenv 3.3.6 codegen-tooling336
 source ~/.pyenv/versions/codegen-tooling336/bin/activate
 pip install -r requirements.txt
-python build.py && clang-format -i out/can_msg.h
+cd codegen/
+python build.py --output=../out/ --filename=../can_messages.asciipb && clang-format -i ../out/can_msg.h
 ```
 
 If you need to generate a new protobuf file
 
 ```bash
 cd codegen-tooling/
-protoc -I=schema --python_out=. schema/can.proto
+protoc -I=schema --python_out=genfiles schema/can.proto
 ```
 
 To add a new dependency, ``pip install $dependency && pip freeze | grep -i $dependency >> requirements.txt``
