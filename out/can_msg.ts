@@ -9,7 +9,7 @@ export const enum CanDevice {
       CAN_DEVICE_RASPBERRY_PI = 6,
       CAN_DEVICE_MPPT_FRONT = 7,
       CAN_DEVICE_MPPT_REAR = 8,
-  NUM_CAN_DEVICE = 9 
+  NUM_CAN_DEVICES = 9 
 }
 
 // For setting the CAN message ID
@@ -43,5 +43,5 @@ export const enum CanDevice {
       CAN_MESSAGE_MAIN_RELAY_STATE = 26,
       CAN_MESSAGE_BATTERY_RELAY_STATE = 27,
       CAN_MESSAGE_SOLAR_RELAY_STATE = 28,
-  NUM_CAN_MESSAGE = 29 
+  NUM_CAN_MESSAGES = 29 
 }

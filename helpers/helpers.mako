@@ -17,5 +17,5 @@ Args:
       ${prefix}_${value} = ${key},
     % endif
   % endfor
-  NUM_${prefix} = ${len(data)} \
+  NUM_${prefix}S = ${len(data)} \
 </%def>
