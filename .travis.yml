@@ -17,10 +17,13 @@ branches:
 
 before_install:
   - sudo apt-get -qq update
-  - sudo apt-get install protobuf-compiler
+  - sudo apt-get install clang-format
 
 install:
   - pip install -r requirements.txt
+  - wget https://github.com/google/protobuf/releases/download/v3.4.0/protoc-3.4.0-linux-x86_64.zip
+  - unzip protoc-3.4.0-linux-x86_64.zip
+  - export PATH="${TRAVIS_BUILD_DIR}/bin:$PATH"
 
 script:
   - make test
