@@ -2,22 +2,15 @@
 """build script"""
 from __future__ import absolute_import, division, print_function, unicode_literals
 
-import os.path
+import os
 import sys
 import fnmatch
 from argparse import ArgumentParser
 
-from mako import exceptions
 from mako.lookup import TemplateLookup
 from mako.template import Template
 
-import sys
-import os
-sys.path.append(
-    os.path.abspath(
-        os.path.dirname(os.path.realpath(__file__)) + '/../genfiles'))
-import can_pb2
-import data
+import data  # pylint: disable=unused-import
 
 # mostly for importing templates
 BASE = os.path.dirname(os.path.abspath(__file__ + '/../').replace('\\', '/'))
@@ -26,23 +19,22 @@ PATTERN = '*.mako.*'
 
 
 def main():
-    """The main entry-point of the program
-    """
+    """The main entry-point of the program"""
     try:
         parser = ArgumentParser()
         add_options(parser)
         options = parser.parse_args()
 
         if os.path.isfile(options.filename) is False:
-            raise Exception(
+            raise IOError(
                 'The given file %s could not be found' % options.filename)
 
         for template in get_templates(BASE, PATTERN):
             code = render(template, __file__=template, options=options)
             write(options.output_dir,
                   os.path.basename(template).replace('mako.', ''), code)
-    except Exception as e:
-        abort('Error: %s' % e)
+    except Exception as excep:  # pylint: disable=broad-except
+        abort('Error: %s' % excep)
 
 
 def add_options(parser):
@@ -106,8 +98,8 @@ def render(filename, **context):
         # Uncomment to debug generated Python code:
         # write("/tmp", "mako_%s.py" % os.path.basename(filename), template.code)
         return template.render(**context).encode('utf8')
-    except Exception as e:
-        abort('ERROR: %s' % e)
+    except Exception as excep:  # pylint: disable=broad-except
+        abort('ERROR: %s' % excep)
 
 
 def abort(message):

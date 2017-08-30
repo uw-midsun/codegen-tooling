@@ -1,6 +1,8 @@
 notifications:
   email: false
 
+dist: trusty
+
 language: python
 
 python:
@@ -15,10 +17,16 @@ branches:
   only:
     - master
 
+before_install:
+  - sudo apt-get -qq update
+  - sudo apt-get install clang-format-3.9
+
 install:
   - pip install -r requirements.txt
+  - wget https://github.com/google/protobuf/releases/download/v3.4.0/protoc-3.4.0-linux-x86_64.zip
+  - unzip protoc-3.4.0-linux-x86_64.zip
+  - export PATH="${TRAVIS_BUILD_DIR}/bin:$PATH"
 
 script:
-  - cd codegen/
-  - python -m unittest discover
-  - python build.py --output=../out/ --filename=../can_messages.asciipb
+  - make lint
+  - make test

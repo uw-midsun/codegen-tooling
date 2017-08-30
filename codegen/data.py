@@ -4,16 +4,17 @@ from __future__ import absolute_import, division, print_function, unicode_litera
 
 import sys
 import os
-sys.path.append(os.path.abspath('../genfiles'))
-import can_pb2
-import validator
 
 from collections import defaultdict
 
+from constants import NUM_CAN_DEVICES, NUM_CAN_MESSAGES  # pylint: disable=unused-import
 from google.protobuf import text_format
 
-import re
-from constants import NUM_CAN_DEVICES, NUM_CAN_MESSAGES
+import validator
+sys.path.append(
+    os.path.abspath(
+        os.path.dirname(os.path.realpath(__file__)) + '/../genfiles'))
+import can_pb2  # pylint: disable=import-error,wrong-import-position
 
 
 def read_protobuf_data(filename):
