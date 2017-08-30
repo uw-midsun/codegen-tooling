@@ -33,6 +33,12 @@ If you need to run unittests
 make test
 ```
 
+If you need to lint code
+
+```bash
+make lint
+```
+
 To clean the outputs
 
 ```bash
