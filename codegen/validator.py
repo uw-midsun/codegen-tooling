@@ -1,7 +1,7 @@
 """Validation things"""
 from __future__ import absolute_import, division, print_function, unicode_literals
 
-from constants import NUM_CAN_MESSAGES, NUM_CAN_DEVICES
+from constants import NUM_CAN_MESSAGES
 
 
 def valid_can_id(can_id):
