@@ -29,8 +29,9 @@ def read_protobuf_data(filename):
     try:
         with open(filename, 'r') as asciipb:
             text_format.Merge(asciipb.read(), can_messages)
-    except Exception:
-        raise Exception('Could not parse ASCII Protobuf file %s' % filename)
+    except Exception as e:
+        raise Exception('Could not parse ASCII Protobuf file %s: %s' %
+                        (filename, e))
     return can_messages.msg
 
 
@@ -43,7 +44,7 @@ def parse_can_device_enum():
     Returns:
         a dictionary of CAN source devices and their names
     """
-    can_devices = defaultdict(lambda : None)
+    can_devices = defaultdict(lambda: None)
     for name, value in can_pb2.CanMsg.Source.items():
         can_devices[value] = name
     return can_devices
@@ -58,7 +59,7 @@ def parse_can_message_enum(can_messages_file):
     Returns:
         a dictionary of CAN messages
     """
-    messages = defaultdict(lambda : None)
+    messages = defaultdict(lambda: None)
     can_messages = read_protobuf_data(can_messages_file)
     for can_message in can_messages:
         identifier = to_identifier(can_message.msg_name)

@@ -2,8 +2,7 @@ msg {
   id:0
   msg_name: "bps fault"
   can_data {
-    frame {
-      type: UINT64
+    frame_empty {
     }
   }
 }
@@ -12,8 +11,7 @@ msg {
   id:1
   msg_name: "motor drive"
   can_data {
-    frame {
-      type: UINT64
+    frame_empty {
     }
   }
 }
@@ -22,8 +20,7 @@ msg {
   id:2
   msg_name: "motor cruise"
   can_data {
-    frame {
-      type: UINT64
+    frame_empty {
     }
   }
 }
@@ -32,8 +29,7 @@ msg {
   id:3
   msg_name: "change turn signal state"
   can_data {
-    frame {
-      type: UINT64
+    frame_empty {
     }
   }
 }
@@ -42,8 +38,7 @@ msg {
   id:4
   msg_name: "hazard"
   can_data {
-    frame {
-      type: UINT64
+    frame_empty {
     }
   }
 }
@@ -52,8 +47,7 @@ msg {
   id:5
   msg_name: "headlight state"
   can_data {
-    frame {
-      type: UINT64
+    frame_empty {
     }
   }
 }
@@ -62,8 +56,7 @@ msg {
   id:6
   msg_name: "brake light state"
   can_data {
-    frame {
-      type: UINT64
+    frame_empty {
     }
   }
 }
@@ -72,8 +65,7 @@ msg {
   id:7
   msg_name: "horn state"
   can_data {
-    frame {
-      type: UINT64
+    frame_empty {
     }
   }
 }
@@ -82,8 +74,7 @@ msg {
   id:8
   msg_name: "set bus current limit"
   can_data {
-    frame {
-      type: UINT64
+    frame_empty {
     }
   }
 }
@@ -92,8 +83,7 @@ msg {
   id:9
   msg_name: "heartbeat request"
   can_data {
-    frame {
-      type: UINT64
+    frame_empty {
     }
   }
 }
@@ -103,8 +93,7 @@ msg {
   id:10
   msg_name: "set power state"
   can_data {
-    frame {
-      type: UINT64
+    frame_empty {
     }
   }
 }
@@ -114,8 +103,7 @@ msg {
   id:11
   msg_name: "throttle position"
   can_data {
-    frame {
-      type: UINT64
+    frame_empty {
     }
   }
 }
@@ -125,8 +113,7 @@ msg {
   id:12
   msg_name: "mechanical brake position"
   can_data {
-    frame {
-      type: UINT64
+    frame_empty {
     }
   }
 }
@@ -136,8 +123,7 @@ msg {
   id:13
   msg_name: "battery module voltage"
   can_data {
-    frame {
-      type: UINT64
+    frame_empty {
     }
   }
 }
@@ -147,8 +133,7 @@ msg {
   id:14
   msg_name: "battery current"
   can_data {
-    frame {
-      type: UINT64
+    frame_empty {
     }
   }
 }
@@ -158,8 +143,7 @@ msg {
   id:15
   msg_name: "battery module temperature"
   can_data {
-    frame {
-      type: UINT64
+    frame_empty {
     }
   }
 }
@@ -169,8 +153,7 @@ msg {
   id:16
   msg_name: "battery state of charge"
   can_data {
-    frame {
-      type: UINT64
+    frame_empty {
     }
   }
 }
@@ -180,8 +163,7 @@ msg {
   id:17
   msg_name: "solar voltage"
   can_data {
-    frame {
-      type: UINT64
+    frame_empty {
     }
   }
 }
@@ -190,8 +172,7 @@ msg {
   id:18
   msg_name: "solar power"
   can_data {
-    frame {
-      type: UINT64
+    frame_empty {
     }
   }
 }
@@ -200,8 +181,7 @@ msg {
   id:19
   msg_name: "solar current"
   can_data {
-    frame {
-      type: UINT64
+    frame_empty {
     }
   }
 }
@@ -210,8 +190,7 @@ msg {
   id:20
   msg_name: "motor speed"
   can_data {
-    frame {
-      type: UINT64
+    frame_empty {
     }
   }
 }
@@ -220,8 +199,7 @@ msg {
   id:21
   msg_name: "motor current"
   can_data {
-    frame {
-      type: UINT64
+    frame_empty {
     }
   }
 }
@@ -230,8 +208,7 @@ msg {
   id:22
   msg_name: "motor voltage"
   can_data {
-    frame {
-      type: UINT64
+    frame_empty {
     }
   }
 }
@@ -239,15 +216,14 @@ msg {
 msg {
   id:23
   msg_name: "heartbeat response"
-  is_ack: true
+  is_critical: true
 }
 
 msg {
   id:24
   msg_name: "power rail change"
   can_data {
-    frame {
-      type: UINT64
+    frame_empty {
     }
   }
 }
@@ -256,8 +232,7 @@ msg {
   id:25
   msg_name: "aux battery state"
   can_data {
-    frame {
-      type: UINT64
+    frame_empty {
     }
   }
 }
@@ -266,8 +241,7 @@ msg {
   id:26
   msg_name: "main relay state"
   can_data {
-    frame {
-      type: UINT64
+    frame_empty {
     }
   }
 }
@@ -276,8 +250,7 @@ msg {
   id:27
   msg_name: "battery relay state"
   can_data {
-    frame {
-      type: UINT64
+    frame_empty {
     }
   }
 }
@@ -286,8 +259,7 @@ msg {
   id:28
   msg_name: "solar relay state"
   can_data {
-    frame {
-      type: UINT64
+    frame_empty {
     }
   }
 }

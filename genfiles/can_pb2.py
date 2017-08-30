@@ -19,28 +19,10 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   name='can.proto',
   package='',
   syntax='proto3',
-  serialized_pb=_b('\n\tcan.proto\"Z\n\tDataframe\x12\x1d\n\x04type\x18\x01 \x01(\x0e\x32\x0f.Dataframe.Type\x12\r\n\x05start\x18\x02 \x01(\r\x12\x0b\n\x03\x65nd\x18\x03 \x01(\r\"\x12\n\x04Type\x12\n\n\x06UINT64\x10\x00\"2\n\x07\x43\x61nData\x12\x0c\n\x04\x64\x61ta\x18\x01 \x01(\x04\x12\x19\n\x05\x66rame\x18\x02 \x03(\x0b\x32\n.Dataframe\"\x99\x02\n\x06\x43\x61nMsg\x12\n\n\x02id\x18\x01 \x01(\r\x12\x1e\n\x06source\x18\x02 \x01(\x0e\x32\x0e.CanMsg.Source\x12\x0e\n\x06is_ack\x18\x03 \x01(\x08\x12\x15\n\rglobal_msg_id\x18\x04 \x01(\r\x12\x10\n\x08msg_name\x18\x05 \x01(\t\x12\x1a\n\x08\x63\x61n_data\x18\x06 \x01(\x0b\x32\x08.CanData\"\x8d\x01\n\x06Source\x12\n\n\x06PLUTUS\x10\x00\x12\t\n\x05\x43HAOS\x10\x01\x12\r\n\tTELEMETRY\x10\x02\x12\n\n\x06LIGHTS\x10\x03\x12\x14\n\x10MOTOR_CONTROLLER\x10\x04\x12\n\n\x06THEMIS\x10\x05\x12\x10\n\x0cRASPBERRY_PI\x10\x06\x12\x0e\n\nMPPT_FRONT\x10\x07\x12\r\n\tMPPT_REAR\x10\x08\"!\n\tCanSchema\x12\x14\n\x03msg\x18\x01 \x03(\x0b\x32\x07.CanMsgb\x06proto3')
+  serialized_pb=_b('\n\tcan.proto\"\xb9\x01\n\x07\x46rameU8\x12\x14\n\x0c\x66ield_name_1\x18\x01 \x01(\t\x12\x14\n\x0c\x66ield_name_2\x18\x02 \x01(\t\x12\x14\n\x0c\x66ield_name_3\x18\x03 \x01(\t\x12\x14\n\x0c\x66ield_name_4\x18\x04 \x01(\t\x12\x14\n\x0c\x66ield_name_5\x18\x05 \x01(\t\x12\x14\n\x0c\x66ield_name_6\x18\x06 \x01(\t\x12\x14\n\x0c\x66ield_name_7\x18\x07 \x01(\t\x12\x14\n\x0c\x66ield_name_8\x18\x08 \x01(\t\"b\n\x08\x46rameU16\x12\x14\n\x0c\x66ield_name_1\x18\x01 \x01(\t\x12\x14\n\x0c\x66ield_name_2\x18\x02 \x01(\t\x12\x14\n\x0c\x66ield_name_3\x18\x03 \x01(\t\x12\x14\n\x0c\x66ield_name_4\x18\x04 \x01(\t\"6\n\x08\x46rameU32\x12\x14\n\x0c\x66ield_name_1\x18\x01 \x01(\t\x12\x14\n\x0c\x66ield_name_2\x18\x02 \x01(\t\" \n\x08\x46rameU64\x12\x14\n\x0c\x66ield_name_1\x18\x01 \x01(\t\"\x0c\n\nFrameEmpty\"\xc2\x01\n\x07\x43\x61nData\x12\x0c\n\x04\x64\x61ta\x18\x01 \x01(\x04\x12\x1c\n\x08\x66rame_u8\x18\x02 \x01(\x0b\x32\x08.FrameU8H\x00\x12\x1e\n\tframe_u16\x18\x03 \x01(\x0b\x32\t.FrameU16H\x00\x12\x1e\n\tframe_u32\x18\x04 \x01(\x0b\x32\t.FrameU32H\x00\x12\x1e\n\tframe_u64\x18\x05 \x01(\x0b\x32\t.FrameU64H\x00\x12\"\n\x0b\x66rame_empty\x18\x06 \x01(\x0b\x32\x0b.FrameEmptyH\x00\x42\x07\n\x05\x66rame\"\xe2\x02\n\x06\x43\x61nMsg\x12\n\n\x02id\x18\x01 \x01(\r\x12\x1e\n\x06source\x18\x02 \x01(\x0e\x32\x0e.CanMsg.Source\x12\x13\n\x0bis_critical\x18\x03 \x01(\x08\x12\x15\n\rglobal_msg_id\x18\x04 \x01(\r\x12\x10\n\x08msg_name\x18\x05 \x01(\t\x12\x1a\n\x08\x63\x61n_data\x18\x06 \x01(\x0b\x32\x08.CanData\"\xd1\x01\n\x06Source\x12\n\n\x06PLUTUS\x10\x00\x12\t\n\x05\x43HAOS\x10\x01\x12\r\n\tTELEMETRY\x10\x02\x12\x10\n\x0cLIGHTS_FRONT\x10\x03\x12\x0f\n\x0bLIGHTS_REAR\x10\x04\x12\x14\n\x10MOTOR_CONTROLLER\x10\x05\x12\x13\n\x0f\x44RIVER_CONTROLS\x10\x06\x12\x12\n\x0e\x44RIVER_DISPLAY\x10\x07\x12\x16\n\x12SOLAR_MASTER_FRONT\x10\x08\x12\x15\n\x11SOLAR_MASTER_REAR\x10\t\x12\x10\n\x0cSENSOR_BOARD\x10\n\"!\n\tCanSchema\x12\x14\n\x03msg\x18\x01 \x03(\x0b\x32\x07.CanMsgb\x06proto3')
 )
 
 
-
-_DATAFRAME_TYPE = _descriptor.EnumDescriptor(
-  name='Type',
-  full_name='Dataframe.Type',
-  filename=None,
-  file=DESCRIPTOR,
-  values=[
-    _descriptor.EnumValueDescriptor(
-      name='UINT64', index=0, number=0,
-      options=None,
-      type=None),
-  ],
-  containing_type=None,
-  options=None,
-  serialized_start=85,
-  serialized_end=103,
-)
-_sym_db.RegisterEnumDescriptor(_DATAFRAME_TYPE)
 
 _CANMSG_SOURCE = _descriptor.EnumDescriptor(
   name='Source',
@@ -61,63 +43,106 @@ _CANMSG_SOURCE = _descriptor.EnumDescriptor(
       options=None,
       type=None),
     _descriptor.EnumValueDescriptor(
-      name='LIGHTS', index=3, number=3,
+      name='LIGHTS_FRONT', index=3, number=3,
       options=None,
       type=None),
     _descriptor.EnumValueDescriptor(
-      name='MOTOR_CONTROLLER', index=4, number=4,
+      name='LIGHTS_REAR', index=4, number=4,
       options=None,
       type=None),
     _descriptor.EnumValueDescriptor(
-      name='THEMIS', index=5, number=5,
+      name='MOTOR_CONTROLLER', index=5, number=5,
       options=None,
       type=None),
     _descriptor.EnumValueDescriptor(
-      name='RASPBERRY_PI', index=6, number=6,
+      name='DRIVER_CONTROLS', index=6, number=6,
       options=None,
       type=None),
     _descriptor.EnumValueDescriptor(
-      name='MPPT_FRONT', index=7, number=7,
+      name='DRIVER_DISPLAY', index=7, number=7,
       options=None,
       type=None),
     _descriptor.EnumValueDescriptor(
-      name='MPPT_REAR', index=8, number=8,
+      name='SOLAR_MASTER_FRONT', index=8, number=8,
+      options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='SOLAR_MASTER_REAR', index=9, number=9,
+      options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='SENSOR_BOARD', index=10, number=10,
       options=None,
       type=None),
   ],
   containing_type=None,
   options=None,
-  serialized_start=298,
-  serialized_end=439,
+  serialized_start=748,
+  serialized_end=957,
 )
 _sym_db.RegisterEnumDescriptor(_CANMSG_SOURCE)
 
 
-_DATAFRAME = _descriptor.Descriptor(
-  name='Dataframe',
-  full_name='Dataframe',
+_FRAMEU8 = _descriptor.Descriptor(
+  name='FrameU8',
+  full_name='FrameU8',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='type', full_name='Dataframe.type', index=0,
-      number=1, type=14, cpp_type=8, label=1,
-      has_default_value=False, default_value=0,
+      name='field_name_1', full_name='FrameU8.field_name_1', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='start', full_name='Dataframe.start', index=1,
-      number=2, type=13, cpp_type=3, label=1,
-      has_default_value=False, default_value=0,
+      name='field_name_2', full_name='FrameU8.field_name_2', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='end', full_name='Dataframe.end', index=2,
-      number=3, type=13, cpp_type=3, label=1,
-      has_default_value=False, default_value=0,
+      name='field_name_3', full_name='FrameU8.field_name_3', index=2,
+      number=3, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='field_name_4', full_name='FrameU8.field_name_4', index=3,
+      number=4, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='field_name_5', full_name='FrameU8.field_name_5', index=4,
+      number=5, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='field_name_6', full_name='FrameU8.field_name_6', index=5,
+      number=6, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='field_name_7', full_name='FrameU8.field_name_7', index=6,
+      number=7, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='field_name_8', full_name='FrameU8.field_name_8', index=7,
+      number=8, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
@@ -126,7 +151,6 @@ _DATAFRAME = _descriptor.Descriptor(
   ],
   nested_types=[],
   enum_types=[
-    _DATAFRAME_TYPE,
   ],
   options=None,
   is_extendable=False,
@@ -134,8 +158,153 @@ _DATAFRAME = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=13,
-  serialized_end=103,
+  serialized_start=14,
+  serialized_end=199,
+)
+
+
+_FRAMEU16 = _descriptor.Descriptor(
+  name='FrameU16',
+  full_name='FrameU16',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='field_name_1', full_name='FrameU16.field_name_1', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='field_name_2', full_name='FrameU16.field_name_2', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='field_name_3', full_name='FrameU16.field_name_3', index=2,
+      number=3, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='field_name_4', full_name='FrameU16.field_name_4', index=3,
+      number=4, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=201,
+  serialized_end=299,
+)
+
+
+_FRAMEU32 = _descriptor.Descriptor(
+  name='FrameU32',
+  full_name='FrameU32',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='field_name_1', full_name='FrameU32.field_name_1', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='field_name_2', full_name='FrameU32.field_name_2', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=301,
+  serialized_end=355,
+)
+
+
+_FRAMEU64 = _descriptor.Descriptor(
+  name='FrameU64',
+  full_name='FrameU64',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='field_name_1', full_name='FrameU64.field_name_1', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=357,
+  serialized_end=389,
+)
+
+
+_FRAMEEMPTY = _descriptor.Descriptor(
+  name='FrameEmpty',
+  full_name='FrameEmpty',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=391,
+  serialized_end=403,
 )
 
 
@@ -154,9 +323,37 @@ _CANDATA = _descriptor.Descriptor(
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='frame', full_name='CanData.frame', index=1,
-      number=2, type=11, cpp_type=10, label=3,
-      has_default_value=False, default_value=[],
+      name='frame_u8', full_name='CanData.frame_u8', index=1,
+      number=2, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='frame_u16', full_name='CanData.frame_u16', index=2,
+      number=3, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='frame_u32', full_name='CanData.frame_u32', index=3,
+      number=4, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='frame_u64', full_name='CanData.frame_u64', index=4,
+      number=5, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='frame_empty', full_name='CanData.frame_empty', index=5,
+      number=6, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
@@ -171,9 +368,12 @@ _CANDATA = _descriptor.Descriptor(
   syntax='proto3',
   extension_ranges=[],
   oneofs=[
+    _descriptor.OneofDescriptor(
+      name='frame', full_name='CanData.frame',
+      index=0, containing_type=None, fields=[]),
   ],
-  serialized_start=105,
-  serialized_end=155,
+  serialized_start=406,
+  serialized_end=600,
 )
 
 
@@ -199,7 +399,7 @@ _CANMSG = _descriptor.Descriptor(
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='is_ack', full_name='CanMsg.is_ack', index=2,
+      name='is_critical', full_name='CanMsg.is_critical', index=2,
       number=3, type=8, cpp_type=7, label=1,
       has_default_value=False, default_value=False,
       message_type=None, enum_type=None, containing_type=None,
@@ -239,8 +439,8 @@ _CANMSG = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=158,
-  serialized_end=439,
+  serialized_start=603,
+  serialized_end=957,
 )
 
 
@@ -270,29 +470,78 @@ _CANSCHEMA = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=441,
-  serialized_end=474,
+  serialized_start=959,
+  serialized_end=992,
 )
 
-_DATAFRAME.fields_by_name['type'].enum_type = _DATAFRAME_TYPE
-_DATAFRAME_TYPE.containing_type = _DATAFRAME
-_CANDATA.fields_by_name['frame'].message_type = _DATAFRAME
+_CANDATA.fields_by_name['frame_u8'].message_type = _FRAMEU8
+_CANDATA.fields_by_name['frame_u16'].message_type = _FRAMEU16
+_CANDATA.fields_by_name['frame_u32'].message_type = _FRAMEU32
+_CANDATA.fields_by_name['frame_u64'].message_type = _FRAMEU64
+_CANDATA.fields_by_name['frame_empty'].message_type = _FRAMEEMPTY
+_CANDATA.oneofs_by_name['frame'].fields.append(
+  _CANDATA.fields_by_name['frame_u8'])
+_CANDATA.fields_by_name['frame_u8'].containing_oneof = _CANDATA.oneofs_by_name['frame']
+_CANDATA.oneofs_by_name['frame'].fields.append(
+  _CANDATA.fields_by_name['frame_u16'])
+_CANDATA.fields_by_name['frame_u16'].containing_oneof = _CANDATA.oneofs_by_name['frame']
+_CANDATA.oneofs_by_name['frame'].fields.append(
+  _CANDATA.fields_by_name['frame_u32'])
+_CANDATA.fields_by_name['frame_u32'].containing_oneof = _CANDATA.oneofs_by_name['frame']
+_CANDATA.oneofs_by_name['frame'].fields.append(
+  _CANDATA.fields_by_name['frame_u64'])
+_CANDATA.fields_by_name['frame_u64'].containing_oneof = _CANDATA.oneofs_by_name['frame']
+_CANDATA.oneofs_by_name['frame'].fields.append(
+  _CANDATA.fields_by_name['frame_empty'])
+_CANDATA.fields_by_name['frame_empty'].containing_oneof = _CANDATA.oneofs_by_name['frame']
 _CANMSG.fields_by_name['source'].enum_type = _CANMSG_SOURCE
 _CANMSG.fields_by_name['can_data'].message_type = _CANDATA
 _CANMSG_SOURCE.containing_type = _CANMSG
 _CANSCHEMA.fields_by_name['msg'].message_type = _CANMSG
-DESCRIPTOR.message_types_by_name['Dataframe'] = _DATAFRAME
+DESCRIPTOR.message_types_by_name['FrameU8'] = _FRAMEU8
+DESCRIPTOR.message_types_by_name['FrameU16'] = _FRAMEU16
+DESCRIPTOR.message_types_by_name['FrameU32'] = _FRAMEU32
+DESCRIPTOR.message_types_by_name['FrameU64'] = _FRAMEU64
+DESCRIPTOR.message_types_by_name['FrameEmpty'] = _FRAMEEMPTY
 DESCRIPTOR.message_types_by_name['CanData'] = _CANDATA
 DESCRIPTOR.message_types_by_name['CanMsg'] = _CANMSG
 DESCRIPTOR.message_types_by_name['CanSchema'] = _CANSCHEMA
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
-Dataframe = _reflection.GeneratedProtocolMessageType('Dataframe', (_message.Message,), dict(
-  DESCRIPTOR = _DATAFRAME,
+FrameU8 = _reflection.GeneratedProtocolMessageType('FrameU8', (_message.Message,), dict(
+  DESCRIPTOR = _FRAMEU8,
   __module__ = 'can_pb2'
-  # @@protoc_insertion_point(class_scope:Dataframe)
+  # @@protoc_insertion_point(class_scope:FrameU8)
   ))
-_sym_db.RegisterMessage(Dataframe)
+_sym_db.RegisterMessage(FrameU8)
+
+FrameU16 = _reflection.GeneratedProtocolMessageType('FrameU16', (_message.Message,), dict(
+  DESCRIPTOR = _FRAMEU16,
+  __module__ = 'can_pb2'
+  # @@protoc_insertion_point(class_scope:FrameU16)
+  ))
+_sym_db.RegisterMessage(FrameU16)
+
+FrameU32 = _reflection.GeneratedProtocolMessageType('FrameU32', (_message.Message,), dict(
+  DESCRIPTOR = _FRAMEU32,
+  __module__ = 'can_pb2'
+  # @@protoc_insertion_point(class_scope:FrameU32)
+  ))
+_sym_db.RegisterMessage(FrameU32)
+
+FrameU64 = _reflection.GeneratedProtocolMessageType('FrameU64', (_message.Message,), dict(
+  DESCRIPTOR = _FRAMEU64,
+  __module__ = 'can_pb2'
+  # @@protoc_insertion_point(class_scope:FrameU64)
+  ))
+_sym_db.RegisterMessage(FrameU64)
+
+FrameEmpty = _reflection.GeneratedProtocolMessageType('FrameEmpty', (_message.Message,), dict(
+  DESCRIPTOR = _FRAMEEMPTY,
+  __module__ = 'can_pb2'
+  # @@protoc_insertion_point(class_scope:FrameEmpty)
+  ))
+_sym_db.RegisterMessage(FrameEmpty)
 
 CanData = _reflection.GeneratedProtocolMessageType('CanData', (_message.Message,), dict(
   DESCRIPTOR = _CANDATA,

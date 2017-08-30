@@ -1,41 +1,76 @@
 syntax = "proto3";
 
-// NEXT TAG = 4
-message Dataframe {
-  enum Type { UINT64 = 0; }
-
-  Type type = 1;
-  uint32 start = 2;
-  uint32 end = 3;
+// NEXT TAG = 9
+message FrameU8 {
+  string field_name_1 = 1;
+  string field_name_2 = 2;
+  string field_name_3 = 3;
+  string field_name_4 = 4;
+  string field_name_5 = 5;
+  string field_name_6 = 6;
+  string field_name_7 = 7;
+  string field_name_8 = 8;
 }
+
+// NEXT TAG = 5
+message FrameU16 {
+  string field_name_1 = 1;
+  string field_name_2 = 2;
+  string field_name_3 = 3;
+  string field_name_4 = 4;
+}
+
+// NEXT TAG = 3
+message FrameU32 {
+  string field_name_1 = 1;
+  string field_name_2 = 2;
+}
+
+// NEXT TAG = 2
+message FrameU64 {
+  string field_name_1 = 1; //
+}
+
+// NEXT TAG = 2
+message FrameEmpty {}
 
 // NEXT TAG = 3
 message CanData {
   uint64 data = 1;
-  repeated Dataframe frame = 2;
+  oneof frame {
+    FrameU8 frame_u8 = 2;
+    FrameU16 frame_u16 = 3;
+    FrameU32 frame_u32 = 4;
+    FrameU64 frame_u64 = 5;
+    FrameEmpty frame_empty = 6;
+  }
 }
 
 // NEXT TAG = 7
 message CanMsg {
-  enum Source { // TODO: decide on these
+  enum Source {
     PLUTUS = 0;
     CHAOS = 1;
     TELEMETRY = 2;
-    LIGHTS = 3;
-    MOTOR_CONTROLLER = 4;
-    THEMIS = 5;
-    RASPBERRY_PI = 6;
-    MPPT_FRONT = 7;
-    MPPT_REAR = 8;
+    LIGHTS_FRONT = 3;
+    LIGHTS_REAR = 4;
+    MOTOR_CONTROLLER = 5;
+    DRIVER_CONTROLS = 6;
+    DRIVER_DISPLAY = 7;
+    SOLAR_MASTER_FRONT = 8;
+    SOLAR_MASTER_REAR = 9;
+    SENSOR_BOARD = 10;
   }
-  
+
   uint32 id = 1;     // 0-2047 only
   Source source = 2; // 0-15 only
-  bool is_ack = 3;
+  bool is_critical = 3;
   uint32 global_msg_id = 4; // 0-63 only
   string msg_name = 5;
   CanData can_data = 6;
 }
 
 // NEXT TAG = 2
-message CanSchema { repeated CanMsg msg = 1; }
+message CanSchema {
+  repeated CanMsg msg = 1; //
+}
