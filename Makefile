@@ -1,6 +1,6 @@
 lint:
 	@echo "Linting..."
-	@pylint codegen/
+	@pylint --disable=F0401 codegen/
 
 protos:
 	@echo "Compiling protos..."
