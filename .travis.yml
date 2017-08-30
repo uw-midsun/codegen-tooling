@@ -1,6 +1,8 @@
 notifications:
   email: false
 
+dist: trusty
+
 language: python
 
 python:
