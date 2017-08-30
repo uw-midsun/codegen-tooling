@@ -19,7 +19,7 @@ branches:
 
 before_install:
   - sudo apt-get -qq update
-  - sudo apt-get install clang-format-4.0
+  - sudo apt-get install clang-format-3.9
 
 install:
   - pip install -r requirements.txt
