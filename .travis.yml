@@ -30,7 +30,3 @@ install:
 script:
   - make lint
   - make test
-
-# - cd codegen/
-# - python -m unittest discover
-# - python build.py --output=../out/ --filename=../can_messages.asciipb
