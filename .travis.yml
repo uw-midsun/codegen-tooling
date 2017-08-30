@@ -19,6 +19,8 @@ install:
   - pip install -r requirements.txt
 
 script:
-  - cd codegen/
-  - python -m unittest discover
-  - python build.py --output=../out/ --filename=../can_messages.asciipb
+  - make test
+
+# - cd codegen/
+# - python -m unittest discover
+# - python build.py --output=../out/ --filename=../can_messages.asciipb

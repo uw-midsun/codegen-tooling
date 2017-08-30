@@ -4,7 +4,9 @@ from __future__ import absolute_import, division, print_function, unicode_litera
 
 import sys
 import os
-sys.path.append(os.path.abspath('../genfiles'))
+sys.path.append(
+    os.path.abspath(
+        os.path.dirname(os.path.realpath(__file__)) + '/../genfiles'))
 import can_pb2
 import validator
 
@@ -43,7 +45,7 @@ def parse_can_device_enum():
     Returns:
         a dictionary of CAN source devices and their names
     """
-    can_devices = defaultdict(lambda : None)
+    can_devices = defaultdict(lambda: None)
     for name, value in can_pb2.CanMsg.Source.items():
         can_devices[value] = name
     return can_devices
@@ -58,7 +60,7 @@ def parse_can_message_enum(can_messages_file):
     Returns:
         a dictionary of CAN messages
     """
-    messages = defaultdict(lambda : None)
+    messages = defaultdict(lambda: None)
     can_messages = read_protobuf_data(can_messages_file)
     for can_message in can_messages:
         identifier = to_identifier(can_message.msg_name)
