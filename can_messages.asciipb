@@ -261,3 +261,34 @@ msg {
     }
   }
 }
+
+msg {
+  id:26
+  msg_name: "main relay state"
+  can_data {
+    frame {
+      type: UINT64
+    }
+  }
+}
+
+msg {
+  id:27
+  msg_name: "battery relay state"
+  can_data {
+    frame {
+      type: UINT64
+    }
+  }
+}
+
+msg {
+  id:28
+  msg_name: "solar relay state"
+  can_data {
+    frame {
+      type: UINT64
+    }
+  }
+}
+

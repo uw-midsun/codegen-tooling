@@ -1,3 +1,4 @@
+#!/usr/bin/python
 """build script"""
 from __future__ import absolute_import, division, print_function, unicode_literals
 
@@ -12,7 +13,9 @@ from mako.template import Template
 
 import sys
 import os
-sys.path.append(os.path.abspath('../genfiles'))
+sys.path.append(
+    os.path.abspath(
+        os.path.dirname(os.path.realpath(__file__)) + '/../genfiles'))
 import can_pb2
 import data
 
@@ -31,11 +34,13 @@ def main():
         options = parser.parse_args()
 
         if os.path.isfile(options.filename) is False:
-            raise Exception('The given file %s could not be found' % options.filename)
+            raise Exception(
+                'The given file %s could not be found' % options.filename)
 
         for template in get_templates(BASE, PATTERN):
             code = render(template, __file__=template, options=options)
-            write(options.output_dir, os.path.basename(template).replace('mako.', ''), code)
+            write(options.output_dir,
+                  os.path.basename(template).replace('mako.', ''), code)
     except Exception as e:
         abort('Error: %s' % e)
 
@@ -49,10 +54,20 @@ def add_options(parser):
     Returns:
         None
     """
-    parser.add_argument('-o', '--output', dest='output_dir', action='store',
-                        default='out', help='output directory')
-    parser.add_argument('-f', '--filename', dest='filename', action='store',
-                        default='can_messages.asciipb', help='CAN message asciipb file')
+    parser.add_argument(
+        '-o',
+        '--output',
+        dest='output_dir',
+        action='store',
+        default='out',
+        help='output directory')
+    parser.add_argument(
+        '-f',
+        '--filename',
+        dest='filename',
+        action='store',
+        default='can_messages.asciipb',
+        help='CAN message asciipb file')
 
 
 def get_templates(base, pattern):
@@ -80,14 +95,14 @@ def render(filename, **context):
         context: the context
     """
     try:
-        lookup = TemplateLookup(directories=[BASE],
-                                input_encoding='utf8',
-                                strict_undefined=True)
-        template = Template(open(filename, 'rb').read(),
-                            filename=filename,
-                            input_encoding='utf8',
-                            lookup=lookup,
-                            strict_undefined=True)
+        lookup = TemplateLookup(
+            directories=[BASE], input_encoding='utf8', strict_undefined=True)
+        template = Template(
+            open(filename, 'rb').read(),
+            filename=filename,
+            input_encoding='utf8',
+            lookup=lookup,
+            strict_undefined=True)
         # Uncomment to debug generated Python code:
         # write("/tmp", "mako_%s.py" % os.path.basename(filename), template.code)
         return template.render(**context).encode('utf8')
