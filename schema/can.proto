@@ -38,11 +38,11 @@ message FrameEmpty {}
 message CanData {
   uint64 data = 1;
   oneof frame {
-    FrameU8 frame_u8 = 2;
-    FrameU16 frame_u16 = 3;
-    FrameU32 frame_u32 = 4;
-    FrameU64 frame_u64 = 5;
-    FrameEmpty frame_empty = 6;
+    FrameU8 u8 = 2;
+    FrameU16 u16 = 3;
+    FrameU32 u32 = 4;
+    FrameU64 u64 = 5;
+    FrameEmpty empty = 6;
   }
 }
 
