@@ -15,8 +15,9 @@ sys.path.append(
         os.path.dirname(os.path.realpath(__file__)) + '/../genfiles'))
 import can_pb2  # pylint: disable=import-error,wrong-import-position
 
-CanFrame = namedtuple('CanFrame',
-                      ['msg_name', 'source', 'ftype', 'fields', 'is_critical'])
+CanFrame = namedtuple('CanFrame', [
+    'msg_name', 'source', 'ftype', 'fields', 'is_critical', 'dlc'
+])
 
 
 def read_protobuf_data(filename):
@@ -107,7 +108,8 @@ def parse_can_frames(can_messages_file):
             source=device_enum[can_message.source],
             ftype=oneof,
             fields=fields,
-            is_critical=can_message.is_critical)
+            is_critical=can_message.is_critical,
+            dlc=int(len(fields) * NUM_DLC_BYTES / max(1, NUM_FIELDS[oneof])))
     return messages
 
 

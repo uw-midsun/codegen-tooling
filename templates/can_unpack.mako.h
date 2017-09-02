@@ -13,7 +13,7 @@
       , ${field}_ptr \
     % endfor 
     ) \
-    can_unpack_impl_${frame.ftype}((msg_ptr) \
+    can_unpack_impl_${frame.ftype}((msg_ptr), ${frame.dlc} \
     % for field in frame.fields:
       , (${field}_ptr) \
     % endfor
