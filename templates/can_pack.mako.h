@@ -13,7 +13,7 @@
       , ${field}_${frame.ftype} \
     % endfor 
     ) \
-    can_pack_impl_${frame.ftype}((msg_ptr), ${frame.source}, ${frame.msg_name}, ${frame.dlc}  \
+    can_pack_impl_${frame.ftype}((msg_ptr), CAN_DEVICE_${frame.source}, CAN_MESSAGE_${frame.msg_name}, ${frame.dlc}  \
     % for field in frame.fields:
       , (${field}_${frame.ftype}) \
     % endfor
