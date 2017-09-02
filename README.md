@@ -5,6 +5,16 @@
 Assorted code generation utilities and tooling
 
 ## Getting Started
+
+The `protoc` compiler is needed to build protocol buffers on Ubuntu the official
+version is out of date so use the following [ppa](https://launchpad.net/~maarten-fonville/+archive/ubuntu/protobuf) 
+to add it.
+```bash
+sudo add-apt-repository ppa:maarten-fonville/protobuf
+sudo apt-get update
+```
+
+If you already have protoc installed continue from here:
 ```bash
 virtualenv .venv
 source .venv/bin/activate

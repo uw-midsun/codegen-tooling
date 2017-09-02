@@ -1,294 +1,345 @@
+# Message Definitions in plaintext are on the wiki at:
+# https://uwmidsun.atlassian.net/wiki/spaces/ELEC/pages/50003973/CAN+Message+Definitions
+#
+# If you are making changes to this file please update the corresponding entry
+# on the wiki. If you need to add a new message use a reasonable
+# reserved ID. The higher ID the lower the priority. Generally 
+# - 0-13: Critical messages (have ACK)
+# - 14-30: Actionable messages (trigger a change in another system)
+# - 30-63: Data messages (usually not actionable by an onboard device)
+
 msg {
-  id:0
+  id: 0
+  source: PLUTUS
   msg_name: "bps fault"
+  is_critical: true
   can_data {
-    frame {
-      type: UINT64
+    empty {
     }
   }
 }
 
 msg {
-  id:1
-  msg_name: "motor drive"
+  id: 1
+  source: CHAOS
+  msg_name: "battery relay"
+  is_critical: true
   can_data {
-    frame {
-      type: UINT64
+    u8 {
+      field_name_1: "relay_state"
     }
   }
 }
 
 msg {
-  id:2
+  id: 2
+  source: CHAOS
+  msg_name: "main relay"
+  is_critical: true
+  can_data {
+    u8 {
+      field_name_1: "relay_state"
+    }
+  }
+}
+
+msg {
+  id: 3
+  source: CHAOS
+  msg_name: "solar relay"
+  is_critical: true
+  can_data {
+    u8 {
+      field_name_1: "relay_state"
+    }
+  }
+}
+
+msg {
+  id: 4
+  source: DRIVER_CONTROLS
+  msg_name: "power state"
+  is_critical: true
+  can_data {
+    u8 {
+      field_name_1: "power_state"
+    }
+  }
+}
+
+# IDs: 5-15 Reserved
+
+msg {
+  id: 16
+  source: CHAOS
+  msg_name: "ovuv dcdc aux"
+  msg_readable_name: "ov uv dcdc and aux bat"
+  can_data {
+    u8 {
+      field_name_1: "dcdc_ov_flag"
+      field_name_2: "dcdc_uv_flag"
+      field_name_3: "aux_bat_ov_flag"
+      field_name_4: "aux_bat_uv_flag"
+    }
+  }
+}
+
+msg {
+  id: 17
+  source: MOTOR_CONTROLLER
+  msg_name: "mc error limits"
+  msg_readable_name: "motor controller error and limits"
+  can_data {
+    u32 {
+      field_name_1: "error_id"
+      field_name_2: "limits"
+    }
+  }
+}
+
+msg {
+  id: 18
+  source: DRIVER_CONTROLS
+  msg_name: "throttle"
+  can_data {
+    empty {
+    }
+  }
+}
+
+msg {
+  id: 19
+  source: DRIVER_CONTROLS
   msg_name: "motor cruise"
   can_data {
-    frame {
-      type: UINT64
+    empty {
     }
   }
 }
 
 msg {
-  id:3
-  msg_name: "change turn signal state"
+  id: 20
+  source: DRIVER_CONTROLS
+  msg_name: "direction selector"
   can_data {
-    frame {
-      type: UINT64
+    empty {
     }
   }
 }
 
+# IDs: 21-23 Reserved
+
 msg {
-  id:4
-  msg_name: "hazard"
+  id: 24
+  source: DRIVER_CONTROLS
+  msg_name: "lights states"
   can_data {
-    frame {
-      type: UINT64
+    u8 {
+      field_name_1: "hazard"
+      field_name_2: "left_turn"
+      field_name_3: "right_turn"
+      field_name_4: "brakes"
+      field_name_5: "headlights"
     }
   }
 }
 
 msg {
-  id:5
-  msg_name: "headlight state"
+  id: 25
+  source: DRIVER_CONTROLS
+  msg_name: "horn"
   can_data {
-    frame {
-      type: UINT64
+    u8 {
+      field_name_1: "state"
     }
   }
 }
 
 msg {
-  id:6
-  msg_name: "brake light state"
+  id: 26
+  source: DRIVER_CONTROLS
+  msg_name: "mechanical brake"
   can_data {
-    frame {
-      type: UINT64
+    empty {
     }
   }
 }
 
+# IDs: 27-30 Reserved
+
 msg {
-  id:7
-  msg_name: "horn state"
+  id: 31
+  source: PLUTUS
+  msg_name: "battery soc"
   can_data {
-    frame {
-      type: UINT64
+    empty {
     }
   }
 }
 
 msg {
-  id:8
-  msg_name: "set bus current limit"
+  id: 32
+  source: PLUTUS
+  msg_name: "battery vct"
+  msg_readable_name: "battery voltage current temperature"
   can_data {
-    frame {
-      type: UINT64
+    u16 {
+      field_name_1: "module_id"
+      field_name_2: "voltage"
+      field_name_3: "current"
+      field_name_4: "temperature"
     }
   }
 }
 
+# IDs: 33-34 Reserved
+
 msg {
-  id:9
-  msg_name: "heartbeat request"
+  id: 35
+  source: MOTOR_CONTROLLER
+  msg_name: "motor controller vc"
+  msg_readable_name: "motor controller voltage current"
   can_data {
-    frame {
-      type: UINT64
+    u16 {
+      field_name_1: "mc_voltage_1"
+      field_name_2: "mc_current_1"
+      field_name_3: "mc_voltage_2"
+      field_name_4: "mc_current_2"
     }
   }
 }
 
-
 msg {
-  id:10
-  msg_name: "set power state"
+  id: 36
+  source: MOTOR_CONTROLLER
+  msg_name: "motor velocity"
   can_data {
-    frame {
-      type: UINT64
+    empty {
     }
   }
 }
 
-
 msg {
-  id:11
-  msg_name: "throttle position"
+  id: 37
+  source: MOTOR_CONTROLLER
+  msg_name: "motor controller temps"
   can_data {
-    frame {
-      type: UINT64
+    empty {
     }
   }
 }
 
-
 msg {
-  id:12
-  msg_name: "mechanical brake position"
+  id: 38
+  source: MOTOR_CONTROLLER
+  msg_name: "motor amp hr"
   can_data {
-    frame {
-      type: UINT64
+    empty {
     }
   }
 }
 
-
 msg {
-  id:13
-  msg_name: "battery module voltage"
+  id: 39
+  source: MOTOR_CONTROLLER
+  msg_name: "odometer"
   can_data {
-    frame {
-      type: UINT64
+    empty {
     }
   }
 }
 
+# IDs: 40-42 Reserved
 
 msg {
-  id:14
-  msg_name: "battery current"
+  id: 43
+  source: CHAOS
+  msg_name: "aux dcdc vc"
+  msg_readable_name: "aux bat and dcdc voltage current"
   can_data {
-    frame {
-      type: UINT64
+    u16 {
+      field_name_1: "aux_voltage"
+      field_name_2: "aux_current"
+      field_name_3: "dcdc_voltage"
+      field_name_4: "dcdc_current"
     }
   }
 }
 
-
 msg {
-  id:15
-  msg_name: "battery module temperature"
+  id: 44
+  source: CHAOS
+  msg_name: "dcdc temps"
   can_data {
-    frame {
-      type: UINT64
+    u16 {
+      field_name_1: "temp_1"
+      field_name_2: "temp_2"
     }
   }
 }
 
-
 msg {
-  id:16
-  msg_name: "battery state of charge"
+  id: 45
+  source: SOLAR_MASTER_FRONT
+  msg_name: "solar data front"
   can_data {
-    frame {
-      type: UINT64
+    u16 {
+      field_name_1: "module_id"
+      field_name_2: "voltage"
+      field_name_3: "current"
+      field_name_4: "temperature"
     }
   }
 }
 
-
 msg {
-  id:17
-  msg_name: "solar voltage"
+  id: 46
+  source: SOLAR_MASTER_REAR
+  msg_name: "solar data rear"
   can_data {
-    frame {
-      type: UINT64
+    u16 {
+      field_name_1: "module_id"
+      field_name_2: "voltage"
+      field_name_3: "current"
+      field_name_4: "temperature"
     }
   }
 }
 
+# ID: 47 Reserved
+
 msg {
-  id:18
-  msg_name: "solar power"
+  id: 48
+  source: DRIVER_CONTROLS
+  msg_name: "steering angle"
   can_data {
-    frame {
-      type: UINT64
+    empty {
     }
   }
 }
 
+# IDs: 49-50 Reserved
+
 msg {
-  id:19
-  msg_name: "solar current"
+  id: 51
+  source: SENSOR_BOARD
+  msg_name: "linear acceleration"
   can_data {
-    frame {
-      type: UINT64
+    empty {
     }
   }
 }
 
 msg {
-  id:20
-  msg_name: "motor speed"
+  id: 52
+  source: SENSOR_BOARD
+  msg_name: "angular rotation"
   can_data {
-    frame {
-      type: UINT64
+    empty {
     }
   }
 }
 
-msg {
-  id:21
-  msg_name: "motor current"
-  can_data {
-    frame {
-      type: UINT64
-    }
-  }
-}
+# IDs: 56-63 Reserved
 
-msg {
-  id:22
-  msg_name: "motor voltage"
-  can_data {
-    frame {
-      type: UINT64
-    }
-  }
-}
-
-msg {
-  id:23
-  msg_name: "heartbeat response"
-  is_ack: true
-}
-
-msg {
-  id:24
-  msg_name: "power rail change"
-  can_data {
-    frame {
-      type: UINT64
-    }
-  }
-}
-
-msg {
-  id:25
-  msg_name: "aux battery state"
-  can_data {
-    frame {
-      type: UINT64
-    }
-  }
-}
-
-msg {
-  id:26
-  msg_name: "main relay state"
-  can_data {
-    frame {
-      type: UINT64
-    }
-  }
-}
-
-msg {
-  id:27
-  msg_name: "battery relay state"
-  can_data {
-    frame {
-      type: UINT64
-    }
-  }
-}
-
-msg {
-  id:28
-  msg_name: "solar relay state"
-  can_data {
-    frame {
-      type: UINT64
-    }
-  }
-}
-
+# No ID may exceed 63. 
