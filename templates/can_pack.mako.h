@@ -15,10 +15,10 @@
     ) \
     can_pack_impl_${frame.ftype}((msg_ptr), ${frame.source}, ${frame.msg_name} \
     % for field in frame.fields:
-       , (${field}) \
+      , (${field}) \
     % endfor
     % for _ in range(0, NUM_FIELDS[frame.ftype] - len(frame.fields)):
-       , CAN_PACK_IMPL_EMPTY \
+      , CAN_PACK_IMPL_EMPTY \
     % endfor
     )
 % endfor

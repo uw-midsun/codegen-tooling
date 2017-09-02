@@ -10,15 +10,15 @@
 
 #define CAN_UNPACK_${frame.msg_name}(msg_ptr \
     % for field in frame.fields: 
-    , ${field}_ptr \
+      , ${field}_ptr \
     % endfor 
     ) \
     can_unpack_impl_${frame.ftype}((msg_ptr) \
     % for field in frame.fields:
-       , (${field}_ptr) \
+      , (${field}_ptr) \
     % endfor
     % for _ in range(0, NUM_FIELDS[frame.ftype] - len(frame.fields)):
-       , CAN_UNPACK_IMPL_EMPTY \
+      , CAN_UNPACK_IMPL_EMPTY \
     % endfor
     )
 % endfor
