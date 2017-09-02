@@ -4,16 +4,16 @@ from __future__ import absolute_import, division, print_function, unicode_litera
 import unittest
 import mock
 
+from parameterized import parameterized
+
 import data
 
 
+# pylint: disable=invalid-name
 class TestDataMethods(unittest.TestCase):
     """Test the proto parsing and data reading."""
 
-    @mock.patch("data.open")
-    def test_parse_can_message_enum_invalid_can_id(self, mock_open):  # pylint: disable=invalid-name
-        """Tests for an invalid CAN ID handler."""
-        ascii_protobuf = """
+    @parameterized.expand([("""
             msg {
                 id:300
                 msg_name: "can id over 128"
@@ -23,72 +23,101 @@ class TestDataMethods(unittest.TestCase):
                     }
                 }
             }
-        """
-        mock_open.side_effect = [
-            mock.mock_open(read_data=ascii_protobuf).return_value
-        ]
-        with self.assertRaises(Exception):
-            data.parse_can_message_enum(None)
-
-    @mock.patch("data.open")
-    def test_parse_can_message_enum_duplicate_can_id(self, mock_open):  # pylint: disable=invalid-name
-        """Tests there is a check for a duplicate CAN ID."""
-        ascii_protobuf = """
+        """), ("""
             msg {
-                id:1
+                id: 1
                 msg_name: "can message 1"
                 can_data {
-                    frame {
-                        type: UINT64
+                    empty {
                     }
                 }
             }
 
             msg {
-                id:1
+                id: 1
                 msg_name: "silly duplicate message id"
                 can_data {
-                    frame {
-                        type: UINT64
+                    empty {
                     }
                 }
             }
-        """
-        mock_open.side_effect = [
-            mock.mock_open(read_data=ascii_protobuf).return_value
-        ]
-        with self.assertRaises(Exception):
-            data.parse_can_message_enum(None)
+        """), ("""
+            msg {
+                id: 1
+                msg_name: "some name"
+                can_data {
+                    empty {
+                    }
+                }
+            }
 
+            msg {
+                id: 3
+                msg_name: "some name"
+                can_data {
+                    empty {
+                    }
+                }
+            }
+        """)])
     @mock.patch("data.open")
-    def test_parse_can_message_enum_duplicate_name(self, mock_open):  # pylint: disable=invalid-name
-        """Checks for a duplicate CAN message name."""
-        ascii_protobuf = """
-            msg {
-                id:1
-                msg_name: "some name"
-                can_data {
-                    frame {
-                        type: UINT64
-                    }
-                }
-            }
-
-            msg {
-                id:3
-                msg_name: "some name"
-                can_data {
-                    frame {
-                        type: UINT64
-                    }
-                }
-            }
-        """
+    def test_parse_can_message_enum_exceptions(self, ascii_protobuf,
+                                               mock_open):
+        """Tests for an invalid CAN ID handler."""
         mock_open.side_effect = [
             mock.mock_open(read_data=ascii_protobuf).return_value
         ]
         with self.assertRaises(Exception):
             data.parse_can_message_enum(None)
+
+    @parameterized.expand([("""
+            msg {
+                id:300
+                msg_name: "can id over 128"
+                can_data {
+                    frame {
+                        type: UINT64
+                    }
+                }
+            }
+        """), ("""
+            msg {
+                id: 1
+                msg_name: "can message 1"
+                can_data {
+                    empty {
+                    }
+                }
+            }
+
+            msg {
+                id: 1
+                msg_name: "silly duplicate message id"
+                can_data {
+                    empty {
+                    }
+                }
+            }
+        """), ("""
+            msg {
+                id: 1
+                msg_name: "some name"
+                can_data {
+                    u8 {
+                        field_name_1: "hello world"
+                        field_name_2: "hello world"
+                    }
+                }
+            }
+        """)])
+    @mock.patch("data.open")
+    def test_parse_can_frames_exceptions(self, ascii_protobuf, mock_open):
+        """Tests for an invalid CAN ID handler."""
+        mock_open.side_effect = [
+            mock.mock_open(read_data=ascii_protobuf).return_value
+        ]
+        with self.assertRaises(Exception):
+            data.parse_can_frames(None)
 
 
 if __name__ == '__main__':

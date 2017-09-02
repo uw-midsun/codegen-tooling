@@ -15,7 +15,8 @@ sys.path.append(
         os.path.dirname(os.path.realpath(__file__)) + '/../genfiles'))
 import can_pb2  # pylint: disable=import-error,wrong-import-position
 
-CanFrame = namedtuple('CanFrame', ['msg_name', 'source', 'ftype', 'fields'])
+CanFrame = namedtuple('CanFrame',
+                      ['msg_name', 'source', 'ftype', 'fields', 'is_critical'])
 
 
 def read_protobuf_data(filename):
@@ -94,15 +95,19 @@ def parse_can_frames(can_messages_file):
             raise Exception('Invalid CAN id')
         if messages[can_message.id] != None:
             raise Exception('Duplicate CAN id %s' % can_message.id)
-        if identifier in messages.values():
-            raise Exception('Duplicate message name %s' % can_message.msg_name)
         oneof = can_message.can_data.WhichOneof('frame')
-        frame = getattr(can_message.can_data, str(oneof))
+        fields = [
+            to_var(x[1])
+            for x in getattr(can_message.can_data, str(oneof)).ListFields()
+        ]
+        if len(set(fields)) < len(fields):
+            raise Exception('Duplicate fields in %s' % can_message.msg_name)
         messages[can_message.id] = CanFrame(
             msg_name=identifier,
             source=device_enum[can_message.source],
             ftype=oneof,
-            fields=[x[1] for x in frame.ListFields()])
+            fields=fields,
+            is_critical=can_message.is_critical)
     return messages
 
 
@@ -113,6 +118,18 @@ def to_identifier(name):
         string: a string to be converted to an identifier
 
     Returns:
-        a string in snake case
+        a string in upper snake case
     """
     return name.replace(' ', '_').upper()
+
+
+def to_var(field):
+    """Converts a field name int a variable (snake_case)
+
+    Args:
+        string: a string to be converted to a var
+
+    Returns:
+        a string in lower snake case
+    """
+    return field.replace(' ', '_').lower()
