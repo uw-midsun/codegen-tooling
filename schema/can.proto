@@ -31,10 +31,10 @@ message FrameU64 {
   string field_name_1 = 1; //
 }
 
-// NEXT TAG = 2
+// NEXT TAG = 1
 message FrameEmpty {}
 
-// NEXT TAG = 3
+// NEXT TAG = 7
 message CanData {
   uint64 data = 1;
   oneof frame {
@@ -46,7 +46,7 @@ message CanData {
   }
 }
 
-// NEXT TAG = 7
+// NEXT TAG = 8
 message CanMsg {
   enum Source {
     PLUTUS = 0;
