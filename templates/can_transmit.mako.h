@@ -19,14 +19,14 @@
       % if i > 0 or frame.is_critical:
         , \
       % endif
-      ${field} \
+      ${field}_${frame.ftype} \
     % endfor 
     ) \
     do { \
     CANMessage msg = { 0 }; \
     CAN_PACK_${frame.msg_name}(&msg \
     % for field in frame.fields: 
-      , (${field}) \
+      , (${field}_${frame.ftype}) \
     % endfor
     ); \
     can_transmit(&msg \

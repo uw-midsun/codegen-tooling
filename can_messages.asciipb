@@ -25,7 +25,7 @@ msg {
   msg_name: "battery relay"
   is_critical: true
   can_data {
-    u64 {
+    u8 {
       field_name_1: "relay_state"
     }
   }
@@ -37,7 +37,7 @@ msg {
   msg_name: "main relay"
   is_critical: true
   can_data {
-    u64 {
+    u8 {
       field_name_1: "relay_state"
     }
   }
@@ -46,10 +46,10 @@ msg {
 msg {
   id: 3
   source: CHAOS
-  msg_name: "solar relay front"
+  msg_name: "solar relay"
   is_critical: true
   can_data {
-    u64 {
+    u8 {
       field_name_1: "relay_state"
     }
   }
@@ -57,23 +57,11 @@ msg {
 
 msg {
   id: 4
-  source: CHAOS
-  msg_name: "solar relay rear"
-  is_critical: true
-  can_data {
-    u64 {
-      field_name_1: "relay_state"
-    }
-  }
-}
-
-msg {
-  id: 5
   source: DRIVER_CONTROLS
   msg_name: "power state"
   is_critical: true
   can_data {
-    u64 {
+    u8 {
       field_name_1: "power_state"
     }
   }
@@ -87,7 +75,7 @@ msg {
   msg_name: "ovuv dcdc aux"
   msg_readable_name: "ov uv dcdc and aux bat"
   can_data {
-    u16 {
+    u8 {
       field_name_1: "dcdc_ov_flag"
       field_name_2: "dcdc_uv_flag"
       field_name_3: "aux_bat_ov_flag"
@@ -161,7 +149,7 @@ msg {
   source: DRIVER_CONTROLS
   msg_name: "horn"
   can_data {
-    u64 {
+    u8 {
       field_name_1: "state"
     }
   }
@@ -283,7 +271,7 @@ msg {
   source: CHAOS
   msg_name: "dcdc temps"
   can_data {
-    u32 {
+    u16 {
       field_name_1: "temp_1"
       field_name_2: "temp_2"
     }

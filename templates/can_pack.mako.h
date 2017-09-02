@@ -10,12 +10,12 @@
 
 #define CAN_PACK_${frame.msg_name}(msg_ptr \
     % for field in frame.fields: 
-      , ${field} \
+      , ${field}_${frame.ftype} \
     % endfor 
     ) \
     can_pack_impl_${frame.ftype}((msg_ptr), ${frame.source}, ${frame.msg_name}, ${frame.dlc}  \
     % for field in frame.fields:
-      , (${field}) \
+      , (${field}_${frame.ftype}) \
     % endfor
     % for _ in range(0, NUM_FIELDS[frame.ftype] - len(frame.fields)):
       , CAN_PACK_IMPL_EMPTY \
