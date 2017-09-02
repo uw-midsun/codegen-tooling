@@ -84,7 +84,8 @@ msg {
 msg {
   id: 16
   source: CHAOS
-  msg_name: "ov uv dcdc and aux bat"
+  msg_name: "ovuv dcdc aux"
+  msg_readable_name: "ov uv dcdc and aux bat"
   can_data {
     u16 {
       field_name_1: "dcdc_ov_flag"
@@ -98,7 +99,8 @@ msg {
 msg {
   id: 17
   source: MOTOR_CONTROLLER
-  msg_name: "motor controller error and limits"
+  msg_name: "mc error limits"
+  msg_readable_name: "motor controller error and limits"
   can_data {
     u32 {
       field_name_1: "error_id"
@@ -191,6 +193,7 @@ msg {
   id: 32
   source: PLUTUS
   msg_name: "battery vct"
+  msg_readable_name: "battery voltage current temperature"
   can_data {
     u16 {
       field_name_1: "module_id"
@@ -207,6 +210,7 @@ msg {
   id: 35
   source: MOTOR_CONTROLLER
   msg_name: "motor controller vc"
+  msg_readable_name: "motor controller voltage current"
   can_data {
     u16 {
       field_name_1: "mc_voltage_1"
@@ -230,7 +234,7 @@ msg {
 msg {
   id: 37
   source: MOTOR_CONTROLLER
-  msg_name: "motor controller temperatures"
+  msg_name: "motor controller temps"
   can_data {
     empty {
     }
@@ -240,7 +244,7 @@ msg {
 msg {
   id: 38
   source: MOTOR_CONTROLLER
-  msg_name: "motor amp_hr"
+  msg_name: "motor amp hr"
   can_data {
     empty {
     }
@@ -262,7 +266,8 @@ msg {
 msg {
   id: 43
   source: CHAOS
-  msg_name: "aux bat and dcdc vc"
+  msg_name: "aux dcdc vc"
+  msg_readable_name: "aux bat and dcdc voltage current"
   can_data {
     u16 {
       field_name_1: "aux_voltage"
