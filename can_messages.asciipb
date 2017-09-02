@@ -67,7 +67,7 @@ msg {
   }
 }
 
-# IDs: 6-15 Reserved
+# IDs: 5-15 Reserved
 
 msg {
   id: 16
