@@ -1,5 +1,5 @@
 <% from data import parse_can_frames %> \
-<% from constants import NUM_FIELDS %> \
+<% from constants import NUM_FIELDS, NUM_DLC_BYTES %> \
 #pragma once
 
 #include "can_msg_def.h"
@@ -13,7 +13,8 @@
       , ${field} \
     % endfor 
     ) \
-    can_pack_impl_${frame.ftype}((msg_ptr), ${frame.source}, ${frame.msg_name} \
+    can_pack_impl_${frame.ftype}((msg_ptr), ${frame.source}, ${frame.msg_name}, \
+        ${int(len(frame.fields) * NUM_DLC_BYTES / max(1, NUM_FIELDS[frame.ftype]))}  \
     % for field in frame.fields:
       , (${field}) \
     % endfor

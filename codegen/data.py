@@ -6,7 +6,7 @@ import os
 
 from collections import defaultdict, namedtuple
 
-from constants import NUM_CAN_DEVICES, NUM_CAN_MESSAGES, NUM_FIELDS  # pylint: disable=unused-import
+from constants import NUM_CAN_DEVICES, NUM_CAN_MESSAGES, NUM_FIELDS, NUM_DLC_BYTES  # pylint: disable=unused-import
 from google.protobuf import text_format
 
 import validator
