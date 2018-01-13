@@ -19,13 +19,16 @@ branches:
 
 before_install:
   - sudo apt-get -qq update
-  - sudo apt-get install clang-format-3.9
+  - sudo apt-get install clang-format
 
 install:
   - pip install -r requirements.txt
   - wget https://github.com/google/protobuf/releases/download/v3.4.0/protoc-3.4.0-linux-x86_64.zip
   - unzip protoc-3.4.0-linux-x86_64.zip
   - export PATH="${TRAVIS_BUILD_DIR}/bin:$PATH"
+  - wget http://releases.llvm.org/5.0.1/clang+llvm-5.0.1-x86_64-linux-gnu-ubuntu-14.04.tar.xz
+  - tar -xJf clang+llvm-5.0.1-x86_64-linux-gnu-ubuntu-14.04.tar.xz
+  - export PATH="${TRAVIS_BUILD_DIR}/clang+llvm-5.0.1-x86_64-linux-gnu-ubuntu-14.04/bin:$PATH"
 
 script:
   - make lint
