@@ -20,8 +20,8 @@
 # For more details on the initializer style and solution see: 
 # https://stackoverflow.com/questions/33656800/clang-format-line-breaks
 
-Language:        Cpp
-BasedOnStyle:  Google
+Language: Cpp
+BasedOnStyle: Google
 AccessModifierOffset: -1
 AlignAfterOpenBracket: Align
 AlignConsecutiveAssignments: false
@@ -107,7 +107,7 @@ SpacesInSquareBrackets: false
 Standard:        Auto
 TabWidth:        8
 UseTab:          Never
-
+---
 Language: JavaScript
 BasedOnStyle: Google
 
