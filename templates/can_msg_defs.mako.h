@@ -18,14 +18,3 @@ typedef enum {
   ${helpers.generate_enum(can_messages, 'CAN_MESSAGE')}
 } CanMessage;
 
-<% can_frames = parse_can_frames(options.filename) %> \
-#define CAN_MSG_IS_CRITICAL(msg_ptr) \
-  ( \
-  % for id, frame in can_frames.items():
-    % if frame.is_critical:
-      (msg_ptr)->msg_id == CAN_MESSAGE_${frame.msg_name} || \
-    % endif
-  % endfor
-  false)
-
-

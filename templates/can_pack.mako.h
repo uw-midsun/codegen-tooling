@@ -2,7 +2,7 @@
 <% from constants import NUM_FIELDS %> \
 #pragma once
 
-#include "can_msg_def.h"
+#include "can_msg_defs.h"
 #include "can_pack_impl.h"
 
 <% can_frames = parse_can_frames(options.filename) %> 
