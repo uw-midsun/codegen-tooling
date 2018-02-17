@@ -11,9 +11,14 @@
 #define CAN_PACK_${frame.msg_name}(msg_ptr \
     % for field in frame.fields: 
       , ${field}_${frame.ftype} \
-    % endfor 
-    ) \
-    can_pack_impl_${frame.ftype}((msg_ptr), CAN_DEVICE_${frame.source}, CAN_MESSAGE_${frame.msg_name}, ${frame.dlc}  \
+    % endfor
+    % if frame.ftype != 'empty':
+      ) \
+      can_pack_impl_${frame.ftype}((msg_ptr), SYSTEM_CAN_DEVICE_${frame.source}, CAN_MESSAGE_${frame.msg_name}, ${frame.dlc}  \
+    % else:
+      ) \
+      can_pack_impl_${frame.ftype}((msg_ptr), SYSTEM_CAN_DEVICE_${frame.source}, CAN_MESSAGE_${frame.msg_name} \
+    % endif
     % for field in frame.fields:
       , (${field}_${frame.ftype}) \
     % endfor
