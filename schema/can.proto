@@ -46,7 +46,7 @@ message CanData {
   }
 }
 
-// NEXT TAG = 9
+// NEXT TAG = 12
 message CanMsg {
   enum Source {
     PLUTUS = 0;
@@ -60,6 +60,7 @@ message CanMsg {
     SOLAR_MASTER_FRONT = 8;
     SOLAR_MASTER_REAR = 9;
     SENSOR_BOARD = 10;
+    CHARGER = 11;
   }
 
   uint32 raw_id = 1; // 0-2047 only

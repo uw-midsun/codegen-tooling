@@ -11,6 +11,7 @@
 msg {
   id: 0
   source: PLUTUS
+  # target: CHAOS, LIGHTS
   msg_name: "bps fault"
   is_critical: true
   can_data {
@@ -22,6 +23,7 @@ msg {
 msg {
   id: 1
   source: CHAOS
+  # target: PLUTUS
   msg_name: "battery relay"
   is_critical: true
   can_data {
@@ -34,6 +36,7 @@ msg {
 msg {
   id: 2
   source: CHAOS
+  # target: MOTOR_INTERFACE
   msg_name: "main relay"
   is_critical: true
   can_data {
@@ -46,7 +49,8 @@ msg {
 msg {
   id: 3
   source: CHAOS
-  msg_name: "solar relay"
+  # target: SOLAR_MASTER_REAR
+  msg_name: "solar relay rear"
   is_critical: true
   can_data {
     u8 {
@@ -57,7 +61,21 @@ msg {
 
 msg {
   id: 4
+  source: CHAOS
+  # target: SOLAR_MASTER_FRONT
+  msg_name: "solar relay front"
+  is_critical: true
+  can_data {
+    u8 {
+      field_name_1: "relay_state"
+    }
+  }
+}
+
+msg {
+  id: 5
   source: DRIVER_CONTROLS
+  # target: CHAOS
   msg_name: "power state"
   is_critical: true
   can_data {
@@ -72,6 +90,7 @@ msg {
 msg {
   id: 16
   source: CHAOS
+  # target: DRIVER_DISPLAY, TELEMETRY
   msg_name: "ovuv dcdc aux"
   msg_readable_name: "ov uv dcdc and aux bat"
   can_data {
@@ -87,10 +106,11 @@ msg {
 msg {
   id: 17
   source: MOTOR_CONTROLLER
+  # target: TELEMETRY
   msg_name: "mc error limits"
   msg_readable_name: "motor controller error and limits"
   can_data {
-    u32 {
+    u16 {
       field_name_1: "error_id"
       field_name_2: "limits"
     }
@@ -100,46 +120,29 @@ msg {
 msg {
   id: 18
   source: DRIVER_CONTROLS
-  msg_name: "throttle"
+  # target: MOTOR_INTERFACE
+  msg_name: "motor controls"
   can_data {
-    empty {
+    u16 {
+      field_name_1: "throttle"
+      field_name_2: "direction"
+      field_name_2: "cruise_control"
+      field_name_2: "steering angle"
     }
   }
 }
 
-msg {
-  id: 19
-  source: DRIVER_CONTROLS
-  msg_name: "motor cruise"
-  can_data {
-    empty {
-    }
-  }
-}
-
-msg {
-  id: 20
-  source: DRIVER_CONTROLS
-  msg_name: "direction selector"
-  can_data {
-    empty {
-    }
-  }
-}
-
-# IDs: 21-23 Reserved
+# IDs: 19-23 Reserved
 
 msg {
   id: 24
   source: DRIVER_CONTROLS
+  # target: LIGHTS
   msg_name: "lights states"
   can_data {
     u8 {
-      field_name_1: "hazard"
-      field_name_2: "left_turn"
-      field_name_3: "right_turn"
-      field_name_4: "brakes"
-      field_name_5: "headlights"
+      field_name_1: "light_id"
+      field_name_2: "light_state"
     }
   }
 }
@@ -147,6 +150,7 @@ msg {
 msg {
   id: 25
   source: DRIVER_CONTROLS
+  # target: LIGHTS
   msg_name: "horn"
   can_data {
     u8 {
@@ -158,18 +162,45 @@ msg {
 msg {
   id: 26
   source: DRIVER_CONTROLS
+  # target: MOTOR_INTERFACE, TELEMETRY
   msg_name: "mechanical brake"
+  can_data {
+    u8 {
+      field_name_1: "state"
+    }
+  }
+}
+
+msg {
+  id: 27
+  source: CHARGER
+  # target: CHAOS
+  msg_name: "charging req"
   can_data {
     empty {
     }
   }
 }
 
-# IDs: 27-30 Reserved
+msg {
+  id: 28
+  source: CHAOS
+  # target: CHARGER
+  msg_name: "charging permission"
+  can_data {
+    u8 {
+      field_name_1: "allowed"
+    }
+  }
+}
+
+
+# IDs: 29-30 Reserved
 
 msg {
   id: 31
   source: PLUTUS
+  # target: DRIVER_DISPLAY, TELEMETRY
   msg_name: "battery soc"
   can_data {
     empty {
@@ -180,6 +211,7 @@ msg {
 msg {
   id: 32
   source: PLUTUS
+  # target: DRIVER_DISPLAY, TELEMETRY
   msg_name: "battery vct"
   msg_readable_name: "battery voltage current temperature"
   can_data {
@@ -197,6 +229,7 @@ msg {
 msg {
   id: 35
   source: MOTOR_CONTROLLER
+  # target: DRIVER_DISPLAY, TELEMETRY
   msg_name: "motor controller vc"
   msg_readable_name: "motor controller voltage current"
   can_data {
@@ -212,9 +245,12 @@ msg {
 msg {
   id: 36
   source: MOTOR_CONTROLLER
-  msg_name: "motor velocity"
+  # target: DRIVER_DISPLAY, TELEMETRY
+  msg_name: "motor velocity l"
   can_data {
-    empty {
+    u32 {
+      field_name_1: "vehicle_velocity"
+      field_name_2: "angular_freq"
     }
   }
 }
@@ -222,9 +258,12 @@ msg {
 msg {
   id: 37
   source: MOTOR_CONTROLLER
-  msg_name: "motor controller temps"
+  # target: DRIVER_DISPLAY, TELEMETRY
+  msg_name: "motor velocity r"
   can_data {
-    empty {
+    u32 {
+      field_name_1: "vehicle_velocity"
+      field_name_2: "angular_freq"
     }
   }
 }
@@ -232,9 +271,12 @@ msg {
 msg {
   id: 38
   source: MOTOR_CONTROLLER
-  msg_name: "motor amp hr"
+  # target: TELEMETRY
+  msg_name: "motor temps"
   can_data {
-    empty {
+    u32 {
+      field_name_1: "motor_temp_l"
+      field_name_2: "motor_temp_r"
     }
   }
 }
@@ -242,18 +284,34 @@ msg {
 msg {
   id: 39
   source: MOTOR_CONTROLLER
-  msg_name: "odometer"
+  # target: TELEMETRY
+  msg_name: "motor amp hr"
   can_data {
-    empty {
+    u32 {
+      field_name_1: "motor_amp_hr_l"
+      field_name_2: "motor_amp_hr_r"
     }
   }
 }
 
-# IDs: 40-42 Reserved
+msg {
+  id: 40
+  source: MOTOR_CONTROLLER
+  # target: DRIVER_DISPLAY, TELEMETRY
+  msg_name: "odometer"
+  can_data {
+    u32 {
+      field_name_1: "odometer_val"
+    }
+  }
+}
+
+# IDs: 41-42 Reserved
 
 msg {
   id: 43
   source: CHAOS
+  # target: TELEMETRY
   msg_name: "aux dcdc vc"
   msg_readable_name: "aux bat and dcdc voltage current"
   can_data {
@@ -269,6 +327,7 @@ msg {
 msg {
   id: 44
   source: CHAOS
+  # target: TELEMETRY
   msg_name: "dcdc temps"
   can_data {
     u16 {
@@ -281,6 +340,7 @@ msg {
 msg {
   id: 45
   source: SOLAR_MASTER_FRONT
+  # target: DRIVER_DISPLAY, TELEMETRY
   msg_name: "solar data front"
   can_data {
     u16 {
@@ -295,6 +355,7 @@ msg {
 msg {
   id: 46
   source: SOLAR_MASTER_REAR
+  # target: DRIVER_DISPLAY, TELEMETRY
   msg_name: "solar data rear"
   can_data {
     u16 {
@@ -306,23 +367,12 @@ msg {
   }
 }
 
-# ID: 47 Reserved
-
-msg {
-  id: 48
-  source: DRIVER_CONTROLS
-  msg_name: "steering angle"
-  can_data {
-    empty {
-    }
-  }
-}
-
-# IDs: 49-50 Reserved
+# IDs: 47-50 Reserved
 
 msg {
   id: 51
   source: SENSOR_BOARD
+  # target: TELEMETRY
   msg_name: "linear acceleration"
   can_data {
     empty {
@@ -333,6 +383,7 @@ msg {
 msg {
   id: 52
   source: SENSOR_BOARD
+  # target: TELEMETRY
   msg_name: "angular rotation"
   can_data {
     empty {
@@ -340,6 +391,6 @@ msg {
   }
 }
 
-# IDs: 56-63 Reserved
+# IDs: 53-63 Reserved
 
 # No ID may exceed 63. 
