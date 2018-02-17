@@ -14,10 +14,10 @@
     % endfor
     % if frame.ftype != 'empty':
       ) \
-      can_pack_impl_${frame.ftype}((msg_ptr), SYSTEM_CAN_DEVICE_${frame.source}, CAN_MESSAGE_${frame.msg_name}, ${frame.dlc}  \
+      can_pack_impl_${frame.ftype}((msg_ptr), SYSTEM_CAN_DEVICE_${frame.source}, SYSTEM_CAN_MESSAGE_${frame.msg_name}, ${frame.dlc}  \
     % else:
       ) \
-      can_pack_impl_${frame.ftype}((msg_ptr), SYSTEM_CAN_DEVICE_${frame.source}, CAN_MESSAGE_${frame.msg_name} \
+      can_pack_impl_${frame.ftype}((msg_ptr), SYSTEM_CAN_DEVICE_${frame.source}, SYSTEM_CAN_MESSAGE_${frame.msg_name} \
     % endif
     % for field in frame.fields:
       , (${field}_${frame.ftype}) \
