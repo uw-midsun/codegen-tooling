@@ -12,10 +12,11 @@ msg {
   id: 0
   source: PLUTUS
   # target: CHAOS, LIGHTS
-  msg_name: "bps fault"
+  msg_name: "bps heartbeat"
   is_critical: true
   can_data {
-    empty {
+    u8 {
+      field_name_1: "status"
     }
   }
 }
@@ -85,7 +86,19 @@ msg {
   }
 }
 
-# IDs: 5-15 Reserved
+msg {
+  id: 6
+  source: CHAOS
+  # target: PLUTUS, MOTOR_CONTROLLER, DRIVER_CONTROLS
+  msg_name: "powertrain heartbeat"
+  is_critical: true
+  can_data {
+    empty {
+    }
+  }
+}
+
+# IDs: 7-15 Reserved
 
 msg {
   id: 16
