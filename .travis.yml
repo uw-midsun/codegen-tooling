@@ -32,3 +32,18 @@ install:
 script:
   - make lint
   - make test
+  - make gen
+
+after_success:
+  - zip codegen-tooling-out.zip out/*
+
+deploy:
+  provider: releases
+  api_key:
+    secure: L771x98NsBBWYdTHds9PUPL0uhtpbb3Sl3hLVt14Pssz6NbuuEYTaueQSEAhDbcdxaLWkAoZeEyLoZ30qZX/P8TzFdBGAsm6AnEh7nbqLKruMr/3SpNSEmT0V8v0pgXVVaev6Nw5dFFtinjdgaUlP9dwYugcTzKaPPStE02HyJB6r06WSdhSOxiX1+/HcDhjr+kg/pChHOlEjcbFE7QaRY6dvIZNFpa2O2JLjd1AbnZ9DhTfI/xtgbtLehc8lNUfNrxRPjR8qcYWwY6ni8/BVVrlPU/G8U50iXesswsmJtjb/7qoZEmacIKm4OmFSjXUu8QBHU29Ccz+ZypeMC1rEH11yL9pyOoJeHp/VdiO8HCeVr4oP5QedKaT7LT/dIoMhaoCt0gt1xQehJwsl1VdA8n+xAvBRANfA6O1nCa2B/joODEocCWWYtf0TWsW+psCykD52B6MLDJzsXZeaTbnrq2rscNXpx0MDAgf8d5ttw0ODaQ+ZO59sz9ghUMAA8wIyeg2cuLG5o2mdLsq85044NUxXim9tOO3ijje7OrWrk3AagzM/57gG0V+tupG7qoEZ9AnSpon0xsjBKByp2DcxfsWhMFyVG2bxVbSYxcqIgGYIroNNpfYKmgc2dyK2fiPuHa3z1Xr8oijVviFvSbca4wC/F/hd2xAajNehbAUaHU=
+  file:
+    - codegen-tooling-out.zip
+  skip_cleanup: true
+  on:
+    repo: uw-midsun/codegen-tooling
+    tags: true
