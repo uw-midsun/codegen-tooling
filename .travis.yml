@@ -16,6 +16,9 @@ python:
 branches:
   only:
     - master
+    # regex expression to match our build tagging format (e.g. v1.0.0)
+    # https://docs.travis-ci.com/user/customizing-the-build/#Safelisting-or-blocklisting-branches
+    - /^v(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)/
 
 before_install:
   - sudo apt-get -qq update
