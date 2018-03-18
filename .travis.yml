@@ -34,7 +34,7 @@ script:
   - make test
   - make gen
 
-after_success:
+before_deploy:
   - zip codegen-tooling-out.zip out/*
 
 deploy:
