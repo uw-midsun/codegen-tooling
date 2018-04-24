@@ -140,7 +140,7 @@ msg {
       field_name_1: "throttle"
       field_name_2: "direction"
       field_name_3: "cruise_control"
-      field_name_4: "steering angle"
+      field_name_4: "brake_state"
     }
   }
 }
@@ -174,18 +174,6 @@ msg {
 
 msg {
   id: 26
-  source: DRIVER_CONTROLS
-  # target: MOTOR_INTERFACE, TELEMETRY
-  msg_name: "mechanical brake"
-  can_data {
-    u8 {
-      field_name_1: "state"
-    }
-  }
-}
-
-msg {
-  id: 27
   source: CHARGER
   # target: CHAOS
   msg_name: "charging req"
@@ -196,7 +184,7 @@ msg {
 }
 
 msg {
-  id: 28
+  id: 27
   source: CHAOS
   # target: CHARGER
   msg_name: "charging permission"
@@ -208,7 +196,7 @@ msg {
 }
 
 
-# IDs: 29-30 Reserved
+# IDs: 28-30 Reserved
 
 msg {
   id: 31
