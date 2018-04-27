@@ -195,8 +195,19 @@ msg {
   }
 }
 
+msg {
+  id: 28
+  source: DRIVER_CONTROLS
+  # target: TELEMETRY
+  msg_name: "steering angle"
+  can_data {
+    u16 {
+      field_name_1: "steering_angle"
+    }
+  }
+}
 
-# IDs: 28-30 Reserved
+# IDs: 29-30 Reserved
 
 msg {
   id: 31
