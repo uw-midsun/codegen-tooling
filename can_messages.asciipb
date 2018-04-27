@@ -140,7 +140,7 @@ msg {
       field_name_1: "throttle"
       field_name_2: "direction"
       field_name_3: "cruise_control"
-      field_name_4: "brake_state"
+      field_name_4: "mechanical_brake_state"
     }
   }
 }
