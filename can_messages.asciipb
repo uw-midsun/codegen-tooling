@@ -176,9 +176,11 @@ msg {
   id: 26
   source: CHARGER
   # target: CHAOS
-  msg_name: "charging req"
+  msg_name: "charger conn state"
+  msg_readable_name: "charger connection state"
   can_data {
-    empty {
+    u8 {
+      field_name_1: "is_connected"
     }
   }
 }
@@ -187,10 +189,10 @@ msg {
   id: 27
   source: CHAOS
   # target: CHARGER
-  msg_name: "charging permission"
+  msg_name: "charger set relay state"
   can_data {
     u8 {
-      field_name_1: "allowed"
+      field_name_1: "state"
     }
   }
 }
