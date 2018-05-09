@@ -189,7 +189,7 @@ msg {
   id: 27
   source: CHAOS
   # target: CHARGER
-  msg_name: "charger set state"
+  msg_name: "charger set relay state"
   can_data {
     u8 {
       field_name_1: "state"
