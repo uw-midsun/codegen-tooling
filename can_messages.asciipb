@@ -24,12 +24,11 @@ msg {
 msg {
   id: 1
   source: CHAOS
-  # target: PLUTUS
-  msg_name: "battery relay"
+  # target: Driver Controls
+  msg_name: "power distribution fault"
   is_critical: true
   can_data {
-    u8 {
-      field_name_1: "relay_state"
+    empty {
     }
   }
 }
@@ -37,8 +36,8 @@ msg {
 msg {
   id: 2
   source: CHAOS
-  # target: MOTOR_INTERFACE
-  msg_name: "main relay"
+  # target: PLUTUS
+  msg_name: "battery relay main"
   is_critical: true
   can_data {
     u8 {
@@ -49,6 +48,32 @@ msg {
 
 msg {
   id: 3
+  source: CHAOS
+  # target: PLUTUS
+  msg_name: "battery relay slave"
+  is_critical: true
+  can_data {
+    u8 {
+      field_name_1: "relay_state"
+    }
+  }
+}
+
+msg {
+  id: 4
+  source: CHAOS
+  # target: MOTOR_INTERFACE
+  msg_name: "motor relay"
+  is_critical: true
+  can_data {
+    u8 {
+      field_name_1: "relay_state"
+    }
+  }
+}
+
+msg {
+  id: 5
   source: CHAOS
   # target: SOLAR_MASTER_REAR
   msg_name: "solar relay rear"
@@ -61,7 +86,7 @@ msg {
 }
 
 msg {
-  id: 4
+  id: 6
   source: CHAOS
   # target: SOLAR_MASTER_FRONT
   msg_name: "solar relay front"
@@ -74,7 +99,7 @@ msg {
 }
 
 msg {
-  id: 5
+  id: 7
   source: DRIVER_CONTROLS
   # target: CHAOS
   msg_name: "power state"
@@ -87,7 +112,7 @@ msg {
 }
 
 msg {
-  id: 6
+  id: 8
   source: CHAOS
   # target: PLUTUS, MOTOR_CONTROLLER, DRIVER_CONTROLS
   msg_name: "powertrain heartbeat"
@@ -98,7 +123,7 @@ msg {
   }
 }
 
-# IDs: 7-15 Reserved
+# IDs: 9-15 Reserved
 
 msg {
   id: 16
