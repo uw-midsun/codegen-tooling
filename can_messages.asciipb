@@ -170,13 +170,36 @@ msg {
   }
 }
 
-# IDs: 19-23 Reserved
+msg {
+  id: 19
+  source: DRIVER_CONTROLS
+  # target: DRIVER_DISPLAY
+  msg_name: "cruise_target"
+  can_data {
+    u8 {
+      field_name_1: "target speed"
+    }
+  }
+}
+
+# IDs: 20-22 Reserved
+
+msg {
+  id: 23
+  source: LIGHTS_REAR
+  # target: LIGHTS_FRONT
+  msg_name: "lights sync"
+  can_data {
+    empty {
+    }
+  }
+}
 
 msg {
   id: 24
   source: DRIVER_CONTROLS
   # target: LIGHTS
-  msg_name: "lights states"
+  msg_name: "lights state"
   can_data {
     u8 {
       field_name_1: "light_id"
