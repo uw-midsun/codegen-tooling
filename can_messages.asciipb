@@ -159,7 +159,7 @@ msg {
   id: 18
   source: DRIVER_CONTROLS
   # target: MOTOR_INTERFACE
-  msg_name: "motor controls"
+  msg_name: "drive output"
   can_data {
     u16 {
       field_name_1: "throttle"
