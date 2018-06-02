@@ -199,7 +199,7 @@ msg {
   id: 24
   source: DRIVER_CONTROLS
   # target: LIGHTS
-  msg_name: "lights state"
+  msg_name: "light states"
   can_data {
     u8 {
       field_name_1: "light_id"
