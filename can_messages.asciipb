@@ -274,19 +274,30 @@ msg {
   id: 32
   source: PLUTUS
   # target: DRIVER_DISPLAY, TELEMETRY
-  msg_name: "battery vct"
-  msg_readable_name: "battery voltage current temperature"
+  msg_name: "battery vt"
+  msg_readable_name: "battery voltage temperature"
   can_data {
     u16 {
       field_name_1: "module_id"
       field_name_2: "voltage"
-      field_name_3: "current"
-      field_name_4: "temperature"
+      field_name_3: "temperature"
     }
   }
 }
 
-# IDs: 33-34 Reserved
+msg {
+  id: 33
+  source: PLUTUS
+  # target: DRIVER_DISPLAY, TELEMETRY
+  msg_name: "battery current"
+  can_data {
+    u32 {
+      field_name_1: "current"
+    }
+  }
+}
+
+# IDs: 34 Reserved
 
 msg {
   id: 35
