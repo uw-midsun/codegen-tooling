@@ -289,10 +289,12 @@ msg {
   id: 33
   source: PLUTUS
   # target: DRIVER_DISPLAY, TELEMETRY
-  msg_name: "battery current"
+  msg_name: "battery aggregate vc"
+  msg_readable_name: "battery aggregate voltage and current"
   can_data {
     u32 {
-      field_name_1: "current"
+      field_name_1: "voltage"
+      field_name_2: "current"
     }
   }
 }

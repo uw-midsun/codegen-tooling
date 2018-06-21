@@ -4,21 +4,10 @@ notifications:
 dist: trusty
 
 language: python
-
 python:
-  - "2.7"
-  - "3.3"
-  - "3.4"
-
-# enable "Build pushes" and "Build pull requests" in Travis CI
-# - pull requests will always be built
-# - only build pushes to master
-branches:
-  only:
-    - master
-    # regex expression to match our build tagging format (e.g. v1.0.0)
-    # https://docs.travis-ci.com/user/customizing-the-build/#Safelisting-or-blocklisting-branches
-    - /^v(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)/
+  - '2.7'
+  - '3.3'
+  - '3.4'
 
 before_install:
   - sudo apt-get -qq update
@@ -43,10 +32,8 @@ before_deploy:
 deploy:
   provider: releases
   api_key:
-    secure: L771x98NsBBWYdTHds9PUPL0uhtpbb3Sl3hLVt14Pssz6NbuuEYTaueQSEAhDbcdxaLWkAoZeEyLoZ30qZX/P8TzFdBGAsm6AnEh7nbqLKruMr/3SpNSEmT0V8v0pgXVVaev6Nw5dFFtinjdgaUlP9dwYugcTzKaPPStE02HyJB6r06WSdhSOxiX1+/HcDhjr+kg/pChHOlEjcbFE7QaRY6dvIZNFpa2O2JLjd1AbnZ9DhTfI/xtgbtLehc8lNUfNrxRPjR8qcYWwY6ni8/BVVrlPU/G8U50iXesswsmJtjb/7qoZEmacIKm4OmFSjXUu8QBHU29Ccz+ZypeMC1rEH11yL9pyOoJeHp/VdiO8HCeVr4oP5QedKaT7LT/dIoMhaoCt0gt1xQehJwsl1VdA8n+xAvBRANfA6O1nCa2B/joODEocCWWYtf0TWsW+psCykD52B6MLDJzsXZeaTbnrq2rscNXpx0MDAgf8d5ttw0ODaQ+ZO59sz9ghUMAA8wIyeg2cuLG5o2mdLsq85044NUxXim9tOO3ijje7OrWrk3AagzM/57gG0V+tupG7qoEZ9AnSpon0xsjBKByp2DcxfsWhMFyVG2bxVbSYxcqIgGYIroNNpfYKmgc2dyK2fiPuHa3z1Xr8oijVviFvSbca4wC/F/hd2xAajNehbAUaHU=
-  file:
-    - codegen-tooling-out.zip
-  skip_cleanup: true
+    secure: CT4XLLqlq8ZjObfWiP3xcz1aaG+3xbb3NGhL3IN0LVUUk9ADrbI3qE66OX5gEgI5AIpa1uEruD5+vCG27m6xTszrh/EXRhj/6Y/MtkReBmQL1jndR8sWHLN7rEN9dtG0t3LYivXAbmcF3jIQ/sWkUF64z8yAWeXJITBqyLhU77gE2iQ9WU2Yzlwyq9X+EBGR36jKvsmNw5vabqBTeGbqtnJpIdeXM2HF2iwK5ATHcLudzs0OIAqd2NjGfAt5Y8qEUWUWobcc+qxw+Mz/xue+054kSzd03MqSgmDRvxXNieaG5U6e//pzwUpuFlSLud6tBzStjO8K34jusyn9ONTKWcvfYbmPV4NqX60puYZrucUIeGsvn2RtBQY2WqzH3UmYKQVkcO8QlfXAPB1ewiB0mbRxx3ijypNc4hqWQiLunyCDrSuAFBV9h1mMeIKEgPmmgYS24U+1HfSbLWuh0i18eosNvtxwgDiYI6f+Uov0zUda59PCWB0QKZqFajKMypa+3EgHjqtO0kRburBEl7Fm2TMWadwAxae2mFJ9rW9vV6BHus5YPF3oZjrbbn570PZK5LzSDWh++qokj62/PSrIXhRsSU4Z64pex4+vC3GzmVQAzjhWyW8MKXEbGj8K6SEMHYiAgVbmFp2kFphHgMqjtz/lOSFZPNVqzyzDnBmBfDg=
+  file: codegen-tooling-out.zip
   on:
     repo: uw-midsun/codegen-tooling
     tags: true
