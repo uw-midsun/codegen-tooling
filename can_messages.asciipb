@@ -323,7 +323,7 @@ msg {
   # target: DRIVER_DISPLAY, TELEMETRY
   msg_name: "motor velocity"
   can_data {
-    u32 {
+    u16 {
       field_name_1: "vehicle_velocity_left"
       field_name_2: "vehicle_velocity_right"
     }

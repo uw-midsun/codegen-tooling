@@ -9,6 +9,10 @@ python:
   - '3.3'
   - '3.4'
 
+branches:
+  only:
+    - master
+
 before_install:
   - sudo apt-get -qq update
 
@@ -20,6 +24,7 @@ install:
   - wget http://releases.llvm.org/5.0.1/clang+llvm-5.0.1-x86_64-linux-gnu-ubuntu-14.04.tar.xz
   - tar -xJf clang+llvm-5.0.1-x86_64-linux-gnu-ubuntu-14.04.tar.xz
   - export PATH="${TRAVIS_BUILD_DIR}/clang+llvm-5.0.1-x86_64-linux-gnu-ubuntu-14.04/bin:$PATH"
+  - go get -u https://github.com/golang/protobuf
 
 script:
   - make lint
