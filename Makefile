@@ -12,7 +12,7 @@ lint:
 protos:
 	@echo "Compiling protos..."
 	@mkdir -p genfiles
-	@protoc -I=schema --python_out=genfiles schema/can.proto
+	@protoc -I=schema --python_out=genfiles --go_out=genfiles schema/can.proto
 
 test: gen
 	@echo "Testing..."

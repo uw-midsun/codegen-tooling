@@ -7,7 +7,7 @@ export const enum CanDevice {
 }
 
 // For setting the CAN message ID
-export const enum CanDevice {
+export const enum CanMessage {
   <% can_messages = parse_can_message_enum(options.filename) %> \
   ${helpers.generate_enum(can_messages, 'CAN_MESSAGE')}
 }
