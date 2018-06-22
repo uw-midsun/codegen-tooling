@@ -41,4 +41,3 @@ deploy:
   file: codegen-tooling-out.zip
   on:
     repo: uw-midsun/codegen-tooling
-    tags: true
