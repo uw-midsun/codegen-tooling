@@ -455,6 +455,20 @@ msg {
   }
 }
 
+msg {
+  id: 47
+  source: CHARGER
+  # target: telemetry
+  msg_name: "charger info"
+  can_data {
+    u16 {
+      field_name_1: "current"
+      field_name_2: "voltage"
+      field_name_3: "status_bitset"
+    }
+  }
+}
+
 # IDs: 47-50 Reserved
 
 msg {
