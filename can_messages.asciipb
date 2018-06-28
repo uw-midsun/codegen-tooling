@@ -28,7 +28,8 @@ msg {
   msg_name: "power distribution fault"
   is_critical: true
   can_data {
-    empty {
+    u8 {
+      field_name_1: "reason"
     }
   }
 }
