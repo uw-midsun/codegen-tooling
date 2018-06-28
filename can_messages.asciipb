@@ -182,7 +182,19 @@ msg {
   }
 }
 
-# IDs: 20-22 Reserved
+msg {
+  id: 20
+  source: CHAOS
+  # target PLUTUS_MAIN
+  msg_name: "fan_control"
+  can_data {
+    u8 {
+      field_name_1: "state"
+    }
+  }
+}
+
+# IDs: 21-22 Reserved
 
 msg {
   id: 23
