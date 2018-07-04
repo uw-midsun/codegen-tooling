@@ -210,7 +210,7 @@ msg {
   id: 22
   source: PLUTUS_MAIN
   # target: TELEMETRY
-  msg_name: "get_discharge_bitset"
+  msg_name: "discharge_state"
   can_data {
     u64 {
       field_name_1: "discharge_bitset"
