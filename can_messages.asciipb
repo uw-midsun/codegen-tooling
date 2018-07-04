@@ -28,7 +28,8 @@ msg {
   msg_name: "power distribution fault"
   is_critical: true
   can_data {
-    empty {
+    u8 {
+      field_name_1: "reason"
     }
   }
 }
@@ -471,6 +472,20 @@ msg {
       field_name_2: "voltage"
       field_name_3: "current"
       field_name_4: "temperature"
+    }
+  }
+}
+
+msg {
+  id: 47
+  source: CHARGER
+  # target: telemetry
+  msg_name: "charger info"
+  can_data {
+    u16 {
+      field_name_1: "current"
+      field_name_2: "voltage"
+      field_name_3: "status_bitset"
     }
   }
 }
