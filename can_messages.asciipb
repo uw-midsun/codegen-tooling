@@ -185,7 +185,7 @@ msg {
 msg {
   id: 20
   source: CHAOS
-  # target PLUTUS_MAIN
+  # target PLUTUS
   msg_name: "fan_control"
   can_data {
     u8 {
@@ -197,7 +197,7 @@ msg {
 msg {
   id: 21
   source: TELEMETRY
-  # target: PLUTUS_MAIN
+  # target: PLUTUS
   msg_name: "set_discharge_bitset"
   can_data {
     u64 {
@@ -208,7 +208,7 @@ msg {
 
 msg {
   id: 22
-  source: PLUTUS_MAIN
+  source: PLUTUS
   # target: TELEMETRY
   msg_name: "discharge_state"
   can_data {
