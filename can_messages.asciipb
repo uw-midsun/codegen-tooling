@@ -194,7 +194,29 @@ msg {
   }
 }
 
-# IDs: 21-22 Reserved
+msg {
+  id: 21
+  source: TELEMETRY
+  # target: PLUTUS_MAIN
+  msg_name: "set_discharge_bitset"
+  can_data {
+    u64 {
+      field_name_1: "discharge_bitset"
+    }
+  }
+}
+
+msg {
+  id: 22
+  source: PLUTUS_MAIN
+  # target: TELEMETRY
+  msg_name: "get_discharge_bitset"
+  can_data {
+    u64 {
+      field_name_1: "discharge_bitset"
+    }
+  }
+}
 
 msg {
   id: 23
