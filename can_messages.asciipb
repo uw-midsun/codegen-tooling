@@ -186,7 +186,7 @@ msg {
 msg {
   id: 20
   source: CHAOS
-  # target PLUTUS_MAIN
+  # target PLUTUS
   msg_name: "fan_control"
   can_data {
     u8 {
@@ -195,7 +195,29 @@ msg {
   }
 }
 
-# IDs: 21-22 Reserved
+msg {
+  id: 21
+  source: TELEMETRY
+  # target: PLUTUS
+  msg_name: "set_discharge_bitset"
+  can_data {
+    u64 {
+      field_name_1: "discharge_bitset"
+    }
+  }
+}
+
+msg {
+  id: 22
+  source: PLUTUS
+  # target: TELEMETRY
+  msg_name: "discharge_state"
+  can_data {
+    u64 {
+      field_name_1: "discharge_bitset"
+    }
+  }
+}
 
 msg {
   id: 23
@@ -346,12 +368,11 @@ msg {
 msg {
   id: 37
   source: MOTOR_CONTROLLER
-  # target: DRIVER_DISPLAY, TELEMETRY
-  msg_name: "motor angular frequency"
+  # target: TELEMETRY
+  msg_name: "motor debug"
   can_data {
-    u32 {
-      field_name_1: "angular_freq_left"
-      field_name_2: "angular_freq_right"
+    u64 {
+      field_name_1: "data"
     }
   }
 }
