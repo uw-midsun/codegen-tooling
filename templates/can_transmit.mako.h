@@ -24,7 +24,7 @@
     % endfor 
     ) \
     ({ \
-    CANMessage msg = { 0 }; \
+    CanMessage msg = { 0 }; \
     CAN_PACK_${frame.msg_name}(&msg \
     % for field in frame.fields: 
       , (${field}_${frame.ftype}) \
