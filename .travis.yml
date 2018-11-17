@@ -3,11 +3,16 @@ notifications:
 
 dist: trusty
 
-language: python
-python:
-  - '2.7'
-  - '3.3'
-  - '3.4'
+matrix:
+  - include:
+    language: python
+    python:
+      - '2.7'
+      - '3.3'
+      - '3.4'
+
+  - include:
+    language: go
 
 branches:
   only:

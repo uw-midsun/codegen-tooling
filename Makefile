@@ -4,6 +4,7 @@ gen: protos
 	@echo "Generating from templates..."
 	@python codegen/build.py 
 	@find out -type f \( -iname '*.[ch]' -o -iname '*.ts' \) | xargs -r clang-format -i -fallback-style=Google
+	@find out -type f \( -iname '*.go'  \) | xargs -r gofmt -w
 
 lint:
 	@echo "Linting..."
