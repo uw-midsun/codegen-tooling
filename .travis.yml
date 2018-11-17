@@ -3,14 +3,11 @@ notifications:
 
 dist: trusty
 
-matrix:
-  include:
-    - language: python
-      python:
-        - '2.7'
-        - '3.3'
-        - '3.4'
-    - language: go
+language: python
+python:
+  - '2.7'
+  - '3.3'
+  - '3.4'
 
 branches:
   only:
@@ -18,6 +15,7 @@ branches:
 
 before_install:
   - sudo apt-get -qq update
+  - sudo apt-get install golang
 
 install:
   - pip install -r requirements.txt
