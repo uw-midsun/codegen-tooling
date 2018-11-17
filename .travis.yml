@@ -4,15 +4,13 @@ notifications:
 dist: trusty
 
 matrix:
-  - include:
-    language: python
-    python:
-      - '2.7'
-      - '3.3'
-      - '3.4'
-
-  - include:
-    language: go
+  include:
+    - language: python
+      python:
+        - '2.7'
+        - '3.3'
+        - '3.4'
+    - language: go
 
 branches:
   only:
