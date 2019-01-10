@@ -61,8 +61,12 @@ def main():
         source = get_key_by_val(device_enum, can_frame.source)
         # TODO: iirc, only ACKs have DLC 0, otherwise everything else has a
         # DLC of 8. Check this tho
+        #
+        # All these message types must be Data messages. ACK messages are
+        # currently handled implicitly by the protocol layer, and will be
+        # generated based on whether or not it is an ACKable message.
         frame_id = build_arbitration_id(
-            msg_type=can_frame.is_critical,
+            msg_type=0,
             source_id=source,
             msg_id=msg_id
         )
@@ -147,16 +151,17 @@ def main():
                 print("Couldn't find {}".format(sender))
 
             frame_id = build_arbitration_id(
-                msg_type=0,
+                msg_type=1,
                 source_id=sender_id,
                 msg_id=msg_id
             )
 
             signals = []
+            # TODO: properly calculate length calculation
             message = cantools.database.can.Message(
                 frame_id=frame_id,
-                name='{}_ACK'.format(msg_name),
-                length=8,
+                name='{}_ACK_FROM_{}'.format(msg_name, sender),
+                length=1,
                 signals=signals,
                 # The sender is the Message Source
                 senders=[sender]
