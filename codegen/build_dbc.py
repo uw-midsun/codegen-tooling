@@ -71,6 +71,8 @@ def main():
             msg_id=msg_id
         )
 
+        # TODO: hack
+        total_length = 0
         signals = []
         for index, field in enumerate(can_frame.fields):
             length = FIELDS_LEN[can_frame.ftype]
@@ -95,11 +97,16 @@ def main():
                 is_float=False
             )
             signals.append(signal)
+            total_length += length
 
+        # TODO: fix length
+        # It is safe to divide by 8 since every single message under the old
+        # protocol (aka. what I call CANdlelight 1.0) is byte-aligned. To be
+        # precise, it uses byte-alignment padding to fit 8, 4, 2, 1 bytes.
         message = cantools.database.can.Message(
             frame_id=frame_id,
             name=can_frame.msg_name,
-            length=8,
+            length=total_length // 8,
             signals=signals,
             # The sender is the Message Source
             senders=[can_frame.source]
@@ -112,7 +119,9 @@ def main():
         ACKABLE_MESSAGES = {
             0: [
                 'CHAOS',
-                'LIGHTS_FRONT'
+                'LIGHTS_FRONT',
+                'PLUTUS_SLAVE',
+                'DRIVER_CONTROLS'
             ],
             1: [
                 'DRIVER_CONTROLS'
@@ -156,7 +165,19 @@ def main():
                 msg_id=msg_id
             )
 
-            signals = []
+            # TODO: ack_status
+            signals = [
+                cantools.database.can.Signal(
+                    name='{}_from_{}_ack_status'.format(msg_name, sender),
+                    start=0,
+                    length=8,
+                    byte_order='little_endian',
+                    is_signed=False,
+                    scale=1,
+                    offset=0,
+                    is_float=False
+                )
+            ]
             # TODO: properly calculate length calculation
             message = cantools.database.can.Message(
                 frame_id=frame_id,
