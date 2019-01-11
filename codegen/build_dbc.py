@@ -59,6 +59,100 @@ def main():
 
     for msg_id, can_frame in can_messages.items():
         source = get_key_by_val(device_enum, can_frame.source)
+
+        def get_muxed_voltage_signal():
+            """
+            Get the MUXed signals for the Voltage V/T message.
+            """
+            # The MUX'd message is formatted like this:
+            #
+            #  16-bits   16-bits     16-bits
+            # +--------+---------+-------------+
+            # |   id   | voltage | temperature |
+            # +--------+---------+-------------+
+            #
+            # due to CANdlelight 1.0 alignment rules.
+            results = []
+            # Generate the signal used as the multiplexer
+            # TODO: This is kind of a hack, but idk
+            multiplexer = cantools.database.can.Signal(
+                 name='BATTERY_VT_INDEX',
+                 start=0,
+                 length=16,
+                 byte_order='little_endian',
+                 is_signed=False,
+                 scale=1,
+                 offset=0,
+                 minimum=None,
+                 maximum=None,
+                 unit=None,
+                 choices=None,
+                 dbc_specifics=None,
+                 comment=None,
+                 receivers=None,
+                 is_multiplexer=True,
+                 multiplexer_ids=None,
+                 multiplexer_signal=None,
+                 is_float=False,
+                 decimal=None)
+            results.append(multiplexer)
+
+            # TODO: This range should probably be moved to a constant or
+            # something...
+            # Generate all the multiplexed signals
+            for i in range(0, 36):
+                # The voltage is the second field
+                voltage = cantools.database.can.Signal(
+                    name='CELL_VOLTAGE_{0:03d}'.format(i),
+                    start=16,
+                    length=16,
+                    byte_order='little_endian',
+                    is_signed=False,
+                    scale=1,
+                    offset=0,
+                    minimum=None,
+                    maximum=None,
+                    unit=None,
+                    choices=None,
+                    dbc_specifics=None,
+                    comment=None,
+                    receivers=None,
+                    is_multiplexer=False,
+                    # The multiplexed ID is just the Cell Index
+                    multiplexer_ids=[i],
+                    multiplexer_signal=results[0],
+                    is_float=False,
+                    decimal=None
+                )
+
+                temperature = cantools.database.can.Signal(
+                    name='CELL_TEMP_{0:03d}'.format(i),
+                    start=32,
+                    length=16,
+                    byte_order='little_endian',
+                    is_signed=False,
+                    scale=1,
+                    offset=0,
+                    minimum=None,
+                    maximum=None,
+                    unit=None,
+                    choices=None,
+                    dbc_specifics=None,
+                    comment=None,
+                    receivers=None,
+                    is_multiplexer=False,
+                    # The multiplexed ID is just the Cell Index
+                    multiplexer_ids=[i],
+                    multiplexer_signal=results[0],
+                    is_float=False,
+                    decimal=None
+                )
+
+                results.append(voltage)
+                results.append(temperature)
+
+            return results
+
         # TODO: iirc, only ACKs have DLC 0, otherwise everything else has a
         # DLC of 8. Check this tho
         #
@@ -70,86 +164,103 @@ def main():
             source_id=source,
             msg_id=msg_id
         )
+        print(can_frame.msg_name)
+        if can_frame.msg_name == 'BATTERY_VT':
+            signals = get_muxed_voltage_signal()
 
-        # TODO: hack
-        total_length = 0
-        signals = []
-        for index, field in enumerate(can_frame.fields):
-            length = FIELDS_LEN[can_frame.ftype]
-
-            # Unfortunately, our asciipb doesn't denote whether a field is
-            # signed/unsigned, and it is up to the caller to properly unpack
-            # the CAN signal.
-            #
-            # In this case, it's probably easier to just assume everything is
-            # unsigned and then force people to make a manual pass through and
-            # mark things as appropriate.
-            #
-            # TBH, we only have a few signals that are signed.
-            signal = cantools.database.can.Signal(
-                name=field,
-                start=index*length,
-                length=length,
-                byte_order='little_endian',
-                is_signed=False,
-                scale=1,
-                offset=0,
-                is_float=False
+            # TODO: fix length
+            # It is safe to divide by 8 since every single message under the old
+            # protocol (aka. what I call CANdlelight 1.0) is byte-aligned. To be
+            # precise, it uses byte-alignment padding to fit 8, 4, 2, 1 bytes.
+            message = cantools.database.can.Message(
+                frame_id=frame_id,
+                name=can_frame.msg_name,
+                length=6,
+                signals=signals,
+                # The sender is the Message Source
+                senders=[can_frame.source]
             )
-            signals.append(signal)
-            total_length += length
+            db.messages.append(message)
+        else:
+            # TODO: hack
+            total_length = 0
+            signals = []
+            for index, field in enumerate(can_frame.fields):
+                length = FIELDS_LEN[can_frame.ftype]
 
-        # TODO: fix length
-        # It is safe to divide by 8 since every single message under the old
-        # protocol (aka. what I call CANdlelight 1.0) is byte-aligned. To be
-        # precise, it uses byte-alignment padding to fit 8, 4, 2, 1 bytes.
-        message = cantools.database.can.Message(
-            frame_id=frame_id,
-            name=can_frame.msg_name,
-            length=total_length // 8,
-            signals=signals,
-            # The sender is the Message Source
-            senders=[can_frame.source]
-        )
-        db.messages.append(message)
+                # Unfortunately, our asciipb doesn't denote whether a field is
+                # signed/unsigned, and it is up to the caller to properly unpack
+                # the CAN signal.
+                #
+                # In this case, it's probably easier to just assume everything is
+                # unsigned and then force people to make a manual pass through and
+                # mark things as appropriate.
+                #
+                # TBH, we only have a few signals that are signed.
+                signal = cantools.database.can.Signal(
+                    name=field,
+                    start=index*length,
+                    length=length,
+                    byte_order='little_endian',
+                    is_signed=False,
+                    scale=1,
+                    offset=0,
+                    is_float=False
+                )
+                signals.append(signal)
+                total_length += length
 
-        # If this requires an ACK, then we go through all of the receivers.
-        # Unfortunately, our asciipb file doesn't have a notion of Receivers,
-        # so we hardcode this.
-        ACKABLE_MESSAGES = {
-            0: [
-                'CHAOS',
-                'LIGHTS_FRONT',
-                'PLUTUS_SLAVE',
-                'DRIVER_CONTROLS'
-            ],
-            1: [
-                'DRIVER_CONTROLS'
-            ],
-            2: [
-                'PLUTUS'
-            ],
-            3: [
-                'PLUTUS_SLAVE'
-            ],
-            4: [
-                'MOTOR_CONTROLLER'
-            ],
-            5: [
-                'SOLAR_MASTER_REAR'
-            ],
-            6: [
-                'SOLAR_MASTER_FRONT'
-            ],
-            7: [
-                'CHAOS'
-            ],
-            8: [
-                'PLUTUS',
-                'MOTOR_CONTROLLER',
-                'DRIVER_CONTROLS'
-            ],
-        }
+            # TODO: fix length
+            # It is safe to divide by 8 since every single message under the old
+            # protocol (aka. what I call CANdlelight 1.0) is byte-aligned. To be
+            # precise, it uses byte-alignment padding to fit 8, 4, 2, 1 bytes.
+            message = cantools.database.can.Message(
+                frame_id=frame_id,
+                name=can_frame.msg_name,
+                length=total_length // 8,
+                signals=signals,
+                # The sender is the Message Source
+                senders=[can_frame.source]
+            )
+            db.messages.append(message)
+
+            # If this requires an ACK, then we go through all of the receivers.
+            # Unfortunately, our asciipb file doesn't have a notion of Receivers,
+            # so we hardcode this.
+            ACKABLE_MESSAGES = {
+                0: [
+                    'CHAOS',
+                    'LIGHTS_FRONT',
+                    'PLUTUS_SLAVE',
+                    'DRIVER_CONTROLS'
+                ],
+                1: [
+                    'DRIVER_CONTROLS'
+                ],
+                2: [
+                    'PLUTUS'
+                ],
+                3: [
+                    'PLUTUS_SLAVE'
+                ],
+                4: [
+                    'MOTOR_CONTROLLER'
+                ],
+                5: [
+                    'SOLAR_MASTER_REAR'
+                ],
+                6: [
+                    'SOLAR_MASTER_FRONT'
+                ],
+                7: [
+                    'CHAOS'
+                ],
+                8: [
+                    'PLUTUS',
+                    'MOTOR_CONTROLLER',
+                    'DRIVER_CONTROLS'
+                ],
+            }
 
         def get_ack(sender, msg_name, msg_id):
             """
