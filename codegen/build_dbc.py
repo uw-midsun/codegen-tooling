@@ -12,6 +12,9 @@ import cantools
 # For the proto and asciipb parsing
 import data
 
+# The number of battery modules
+NUM_BATTERY_MODULES = 36
+
 def build_arbitration_id(msg_type, source_id, msg_id):
     """
     typedef union CanId {
@@ -97,13 +100,12 @@ def main():
                  decimal=None)
             results.append(multiplexer)
 
-            # TODO: This range should probably be moved to a constant or
-            # something...
-            # Generate all the multiplexed signals
-            for i in range(0, 36):
-                # The voltage is the second field
+            # Generate all the multiplexed signals for the Module Voltage and
+            # Temperatures
+            for i in range(NUM_BATTERY_MODULES):
+                # The voltage is the second signal field
                 voltage = cantools.database.can.Signal(
-                    name='CELL_VOLTAGE_{0:03d}'.format(i),
+                    name='MODULE_VOLTAGE_{0:03d}'.format(i),
                     start=16,
                     length=16,
                     byte_order='little_endian',
@@ -120,13 +122,15 @@ def main():
                     is_multiplexer=False,
                     # The multiplexed ID is just the Cell Index
                     multiplexer_ids=[i],
+                    # The multiplexer is the Module index
                     multiplexer_signal=results[0],
                     is_float=False,
                     decimal=None
                 )
 
+                # The Temperature is the third field
                 temperature = cantools.database.can.Signal(
-                    name='CELL_TEMP_{0:03d}'.format(i),
+                    name='MODULE_TEMP_{0:03d}'.format(i),
                     start=32,
                     length=16,
                     byte_order='little_endian',
@@ -143,6 +147,7 @@ def main():
                     is_multiplexer=False,
                     # The multiplexed ID is just the Cell Index
                     multiplexer_ids=[i],
+                    # The multiplexer is the Module index
                     multiplexer_signal=results[0],
                     is_float=False,
                     decimal=None
@@ -164,7 +169,7 @@ def main():
             source_id=source,
             msg_id=msg_id
         )
-        print(can_frame.msg_name)
+
         if can_frame.msg_name == 'BATTERY_VT':
             signals = get_muxed_voltage_signal()
 
@@ -188,25 +193,49 @@ def main():
             for index, field in enumerate(can_frame.fields):
                 length = FIELDS_LEN[can_frame.ftype]
 
-                # Unfortunately, our asciipb doesn't denote whether a field is
+                # Unfortunately, our ASCIIPB doesn't denote whether a field is
                 # signed/unsigned, and it is up to the caller to properly unpack
                 # the CAN signal.
                 #
-                # In this case, it's probably easier to just assume everything is
-                # unsigned and then force people to make a manual pass through and
-                # mark things as appropriate.
+                # The only Messages (and Signals) that are signed
+                # (and currently used) are:
                 #
-                # TBH, we only have a few signals that are signed.
-                signal = cantools.database.can.Signal(
-                    name=field,
-                    start=index*length,
-                    length=length,
-                    byte_order='little_endian',
-                    is_signed=False,
-                    scale=1,
-                    offset=0,
-                    is_float=False
-                )
+                # - Drive Output:
+                #   - throttle: int16_t
+                #   - direction: int16_t
+                #   - cruise_control: int16_t
+                #   - mechanical_brake_state: int16_t
+                # - Cruise Target:
+                #   - target speed: int16_t
+                # - Battery Aggregate V/C
+                #   - voltage: uint16_t
+                #   - current: int16_t
+                # - Motor Velocity:
+                #   - vehicle_velocity_left: int16_t
+                #   - vehicle_velocity_right: int16_t
+                if can_frame.msg_name in ['DRIVE_OUTPUT', 'CRUISE_TARGET', 'BATTERY_AGGREGATE_VC', 'MOTOR_VELOCITY'] \
+                    and not field == 'voltage':
+                    signal = cantools.database.can.Signal(
+                        name=field,
+                        start=index*length,
+                        length=length,
+                        byte_order='little_endian',
+                        is_signed=True,
+                        scale=1,
+                        offset=0,
+                        is_float=False
+                    )
+                else:
+                    signal = cantools.database.can.Signal(
+                        name=field,
+                        start=index*length,
+                        length=length,
+                        byte_order='little_endian',
+                        is_signed=False,
+                        scale=1,
+                        offset=0,
+                        is_float=False
+                    )
                 signals.append(signal)
                 total_length += length
 
@@ -225,7 +254,7 @@ def main():
             db.messages.append(message)
 
             # If this requires an ACK, then we go through all of the receivers.
-            # Unfortunately, our asciipb file doesn't have a notion of Receivers,
+            # Unfortunately, our ASCIIPB file doesn't have a notion of Receivers,
             # so we hardcode this.
             ACKABLE_MESSAGES = {
                 0: [
@@ -279,7 +308,7 @@ def main():
             # TODO: ack_status
             signals = [
                 cantools.database.can.Signal(
-                    name='{}_from_{}_ack_status'.format(msg_name, sender),
+                    name='{}_FROM_{}_ACK_STATUS'.format(msg_name, sender),
                     start=0,
                     length=8,
                     byte_order='little_endian',
