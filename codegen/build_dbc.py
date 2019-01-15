@@ -76,28 +76,17 @@ def main():
             #
             # due to CANdlelight 1.0 alignment rules.
             results = []
-            # Generate the signal used as the multiplexer
-            # TODO: This is kind of a hack, but idk
+
+            # Generate the signal used as the multiplexer. This is the `id`
+            # field comprising of the first 2 bytes (even though only 7 bits
+            # are necessary), since Voltage and Temperature are both 16-bit
+            # values.
             multiplexer = cantools.database.can.Signal(
                  name='BATTERY_VT_INDEX',
                  start=0,
                  length=16,
-                 byte_order='little_endian',
-                 is_signed=False,
-                 scale=1,
-                 offset=0,
-                 minimum=None,
-                 maximum=None,
-                 unit=None,
-                 choices=None,
-                 dbc_specifics=None,
-                 comment=None,
-                 receivers=None,
-                 is_multiplexer=True,
-                 multiplexer_ids=None,
-                 multiplexer_signal=None,
-                 is_float=False,
-                 decimal=None)
+                 is_multiplexer=True
+            )
             results.append(multiplexer)
 
             # Generate all the multiplexed signals for the Module Voltage and
@@ -108,18 +97,6 @@ def main():
                     name='MODULE_VOLTAGE_{0:03d}'.format(i),
                     start=16,
                     length=16,
-                    byte_order='little_endian',
-                    is_signed=False,
-                    scale=1,
-                    offset=0,
-                    minimum=None,
-                    maximum=None,
-                    unit=None,
-                    choices=None,
-                    dbc_specifics=None,
-                    comment=None,
-                    receivers=None,
-                    is_multiplexer=False,
                     # The multiplexed ID is just the Cell Index
                     multiplexer_ids=[i],
                     # The multiplexer is the Module index
@@ -134,17 +111,6 @@ def main():
                     start=32,
                     length=16,
                     byte_order='little_endian',
-                    is_signed=False,
-                    scale=1,
-                    offset=0,
-                    minimum=None,
-                    maximum=None,
-                    unit=None,
-                    choices=None,
-                    dbc_specifics=None,
-                    comment=None,
-                    receivers=None,
-                    is_multiplexer=False,
                     # The multiplexed ID is just the Cell Index
                     multiplexer_ids=[i],
                     # The multiplexer is the Module index
@@ -158,9 +124,6 @@ def main():
 
             return results
 
-        # TODO: iirc, only ACKs have DLC 0, otherwise everything else has a
-        # DLC of 8. Check this tho
-        #
         # All these message types must be Data messages. ACK messages are
         # currently handled implicitly by the protocol layer, and will be
         # generated based on whether or not it is an ACKable message.
@@ -305,20 +268,17 @@ def main():
                 msg_id=msg_id
             )
 
-            # TODO: ack_status
+            # All ACK responders send a message containing a ACK_STATUS in
+            # CANdlelight 1.0
             signals = [
                 cantools.database.can.Signal(
                     name='{}_FROM_{}_ACK_STATUS'.format(msg_name, sender),
                     start=0,
-                    length=8,
-                    byte_order='little_endian',
-                    is_signed=False,
-                    scale=1,
-                    offset=0,
-                    is_float=False
+                    length=8
                 )
             ]
-            # TODO: properly calculate length calculation
+            # This ACK message is always length 1, since it just fits the
+            # ACK_STATUS
             message = cantools.database.can.Message(
                 frame_id=frame_id,
                 name='{}_ACK_FROM_{}'.format(msg_name, sender),
