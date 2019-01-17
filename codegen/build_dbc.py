@@ -182,22 +182,15 @@ def main():
                         name=field,
                         start=index*length,
                         length=length,
-                        byte_order='little_endian',
-                        is_signed=True,
-                        scale=1,
-                        offset=0,
-                        is_float=False
+                        is_signed=True
                     )
                 else:
+                    # battery voltage is unsigned
                     signal = cantools.database.can.Signal(
                         name=field,
                         start=index*length,
                         length=length,
-                        byte_order='little_endian',
-                        is_signed=False,
-                        scale=1,
-                        offset=0,
-                        is_float=False
+                        is_signed=False
                     )
                 signals.append(signal)
                 total_length += length
