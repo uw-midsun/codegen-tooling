@@ -195,10 +195,10 @@ def main():
                 signals.append(signal)
                 total_length += length
 
-            # TODO: fix length
-            # It is safe to divide by 8 since every single message under the old
-            # protocol (aka. what I call CANdlelight 1.0) is byte-aligned. To be
-            # precise, it uses byte-alignment padding to fit 8, 4, 2, 1 bytes.
+            # Note: It is safe to divide by 8 since every single message under
+            # the old protocol (aka. what I call CANdlelight 1.0) is
+            # byte-aligned. To be precise, it uses byte-alignment padding to
+            # fit 8, 4, 2, 1 bytes.
             message = cantools.database.can.Message(
                 frame_id=frame_id,
                 name=can_frame.msg_name,
@@ -211,7 +211,9 @@ def main():
 
             # If this requires an ACK, then we go through all of the receivers.
             # Unfortunately, our ASCIIPB file doesn't have a notion of Receivers,
-            # so we hardcode this.
+            # so we hardcode this for now.
+            #
+            # TODO: Determine a way of encoding this in the ASCIIPB
             ACKABLE_MESSAGES = {
                 0: [
                     'CHAOS',
@@ -289,7 +291,7 @@ def main():
                 db.messages.append(message)
 
     # Save as a DBC file
-    with open('test.dbc', 'w') as f:
+    with open('system_can.dbc', 'w') as f:
         f.write(db.as_dbc_string())
     return
 

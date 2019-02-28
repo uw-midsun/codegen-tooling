@@ -165,3 +165,5 @@ pip-selfcheck.json
 # Build artifacts
 out/
 genfiles/
+
+system_can.dbc

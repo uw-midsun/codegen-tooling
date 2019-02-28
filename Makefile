@@ -6,6 +6,10 @@ gen: protos
 	@find out -type f \( -iname '*.[ch]' -o -iname '*.ts' \) | xargs -r clang-format -i -fallback-style=Google
 	@find out -type f \( -iname '*.go'  \) | xargs -r gofmt -w
 
+gen-dbc:
+	@echo "Generating DBC file"
+	@python codegen/build_dbc.py
+
 lint:
 	@echo "Linting..."
 	@pylint --disable=F0401 codegen/
