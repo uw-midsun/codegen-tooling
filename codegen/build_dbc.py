@@ -25,6 +25,7 @@ FIELDS_LEN = {
     'u64': 64
 }
 
+# pylint: disable=W0511
 # TODO: Determine a way of encoding this in the ASCIIPB
 SIGNED_MESSAGES = [
     'DRIVE_OUTPUT',
@@ -33,6 +34,7 @@ SIGNED_MESSAGES = [
     'MOTOR_VELOCITY'
 ]
 
+# pylint: disable=W0511
 # TODO: Determine a way of encoding this in the ASCIIPB
 ACKABLE_MESSAGES = {
     0: [
