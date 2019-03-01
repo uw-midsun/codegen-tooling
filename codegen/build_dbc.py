@@ -7,6 +7,8 @@ we do not have to maintain the dump scripts.
 The idea is that we will eventually switch over to DBC files, or a higher level
 DSL that compiles down into DBC files (ie. if our CAN protocol changes).
 """
+from __future__ import absolute_import, division, print_function, unicode_literals
+
 import cantools
 
 # For the proto and asciipb parsing
