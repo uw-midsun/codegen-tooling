@@ -15,6 +15,58 @@ import data
 # The number of battery modules
 NUM_BATTERY_MODULES = 36
 
+# Length of fields (in bits)
+FIELDS_LEN = {
+    'u8': 8,
+    'u16': 16,
+    'u32': 32,
+    'u64': 64
+}
+
+# TODO: Determine a way of encoding this in the ASCIIPB
+SIGNED_MESSAGES = [
+    'DRIVE_OUTPUT',
+    'CRUISE_TARGET',
+    'BATTERY_AGGREGATE_VC',
+    'MOTOR_VELOCITY'
+]
+
+# TODO: Determine a way of encoding this in the ASCIIPB
+ACKABLE_MESSAGES = {
+    0: [
+        'CHAOS',
+        'LIGHTS_FRONT',
+        'PLUTUS_SLAVE',
+        'DRIVER_CONTROLS'
+    ],
+    1: [
+        'DRIVER_CONTROLS'
+    ],
+    2: [
+        'PLUTUS'
+    ],
+    3: [
+        'PLUTUS_SLAVE'
+    ],
+    4: [
+        'MOTOR_CONTROLLER'
+    ],
+    5: [
+        'SOLAR_MASTER_REAR'
+    ],
+    6: [
+        'SOLAR_MASTER_FRONT'
+    ],
+    7: [
+        'CHAOS'
+    ],
+    8: [
+        'PLUTUS',
+        'MOTOR_CONTROLLER',
+        'DRIVER_CONTROLS'
+    ],
+}
+
 def build_arbitration_id(msg_type, source_id, msg_id):
     """
     typedef union CanId {
@@ -31,17 +83,19 @@ def build_arbitration_id(msg_type, source_id, msg_id):
             ((msg_id & ((0x1 << 6) - 1)) << (4 + 1))
 
 def main():
-    db = cantools.database.can.Database(version='')
+    """The main entry-point of the program"""
+    # pylint: disable=R0914
+    database = cantools.database.can.Database(version='')
 
     # Iterate through all the CAN device IDs and add them to the DBC.
     can_devices = data.parse_can_device_enum()
     for device_id, device_name in can_devices.items():
-        if device_name not in [ 'RESERVED' ]:
+        if device_name not in ['RESERVED']:
             node = cantools.database.can.Node(
                 name=device_name,
                 comment='Device ID: {}'.format(hex(device_id))
             )
-            db.nodes.append(node)
+            database.nodes.append(node)
 
     # Iterate through all the CAN messages IDs and:
     #
@@ -52,12 +106,11 @@ def main():
     can_messages = data.parse_can_frames('can_messages.asciipb')
     device_enum = data.parse_can_device_enum()
 
-
-    FIELDS_LEN = { 'u8': 8, 'u16': 16, 'u32': 32, 'u64': 64 }
-    def get_key_by_val(d, val):
-        for k, v in d.items():
-            if val == v:
-                return k
+    def get_key_by_val(dictionary, val):
+        """Helper function to get key for dictionary value"""
+        for key, value in dictionary.items():
+            if val == value:
+                return key
         return None
 
     for msg_id, can_frame in can_messages.items():
@@ -82,10 +135,10 @@ def main():
             # are necessary), since Voltage and Temperature are both 16-bit
             # values.
             multiplexer = cantools.database.can.Signal(
-                 name='BATTERY_VT_INDEX',
-                 start=0,
-                 length=16,
-                 is_multiplexer=True
+                name='BATTERY_VT_INDEX',
+                start=0,
+                length=16,
+                is_multiplexer=True
             )
             results.append(multiplexer)
 
@@ -133,10 +186,11 @@ def main():
             msg_id=msg_id
         )
 
+        # We do a special case for BATTERY_VT since this is the only message
+        # that we currently do that uses MUXed data.
         if can_frame.msg_name == 'BATTERY_VT':
             signals = get_muxed_voltage_signal()
 
-            # TODO: fix length
             # It is safe to divide by 8 since every single message under the old
             # protocol (aka. what I call CANdlelight 1.0) is byte-aligned. To be
             # precise, it uses byte-alignment padding to fit 8, 4, 2, 1 bytes.
@@ -148,9 +202,8 @@ def main():
                 # The sender is the Message Source
                 senders=[can_frame.source]
             )
-            db.messages.append(message)
+            database.messages.append(message)
         else:
-            # TODO: hack
             total_length = 0
             signals = []
             for index, field in enumerate(can_frame.fields):
@@ -176,7 +229,7 @@ def main():
                 # - Motor Velocity:
                 #   - vehicle_velocity_left: int16_t
                 #   - vehicle_velocity_right: int16_t
-                if can_frame.msg_name in ['DRIVE_OUTPUT', 'CRUISE_TARGET', 'BATTERY_AGGREGATE_VC', 'MOTOR_VELOCITY'] \
+                if can_frame.msg_name in SIGNED_MESSAGES \
                     and not field == 'voltage':
                     signal = cantools.database.can.Signal(
                         name=field,
@@ -207,47 +260,7 @@ def main():
                 # The sender is the Message Source
                 senders=[can_frame.source]
             )
-            db.messages.append(message)
-
-            # If this requires an ACK, then we go through all of the receivers.
-            # Unfortunately, our ASCIIPB file doesn't have a notion of Receivers,
-            # so we hardcode this for now.
-            #
-            # TODO: Determine a way of encoding this in the ASCIIPB
-            ACKABLE_MESSAGES = {
-                0: [
-                    'CHAOS',
-                    'LIGHTS_FRONT',
-                    'PLUTUS_SLAVE',
-                    'DRIVER_CONTROLS'
-                ],
-                1: [
-                    'DRIVER_CONTROLS'
-                ],
-                2: [
-                    'PLUTUS'
-                ],
-                3: [
-                    'PLUTUS_SLAVE'
-                ],
-                4: [
-                    'MOTOR_CONTROLLER'
-                ],
-                5: [
-                    'SOLAR_MASTER_REAR'
-                ],
-                6: [
-                    'SOLAR_MASTER_FRONT'
-                ],
-                7: [
-                    'CHAOS'
-                ],
-                8: [
-                    'PLUTUS',
-                    'MOTOR_CONTROLLER',
-                    'DRIVER_CONTROLS'
-                ],
-            }
+            database.messages.append(message)
 
         def get_ack(sender, msg_name, msg_id):
             """
@@ -284,15 +297,19 @@ def main():
             )
             return message
 
+
+        # If this requires an ACK, then we go through all of the receivers.
+        # Unfortunately, our ASCIIPB file doesn't have a notion of Receivers,
+        # so we hardcode this for now.
         if msg_id in ACKABLE_MESSAGES:
             for acker in ACKABLE_MESSAGES[msg_id]:
                 message = get_ack(acker, can_frame.msg_name, msg_id)
 
-                db.messages.append(message)
+                database.messages.append(message)
 
     # Save as a DBC file
-    with open('system_can.dbc', 'w') as f:
-        f.write(db.as_dbc_string())
+    with open('system_can.dbc', 'w') as file_handle:
+        file_handle.write(database.as_dbc_string())
     return
 
 if __name__ == '__main__':
