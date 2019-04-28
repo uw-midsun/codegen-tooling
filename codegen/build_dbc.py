@@ -41,10 +41,10 @@ ACKABLE_MESSAGES = {
         'CHAOS',
         'LIGHTS_FRONT',
         'PLUTUS_SLAVE',
-        'DRIVER_CONTROLS'
+        'DRIVER_CONTROLS_PEDAL'
     ],
     1: [
-        'DRIVER_CONTROLS'
+        'DRIVER_CONTROLS_PEDAL'
     ],
     2: [
         'PLUTUS'
@@ -67,7 +67,7 @@ ACKABLE_MESSAGES = {
     8: [
         'PLUTUS',
         'MOTOR_CONTROLLER',
-        'DRIVER_CONTROLS'
+        'DRIVER_CONTROLS_PEDAL'
     ],
 }
 
@@ -138,11 +138,15 @@ def main():
             # field comprising of the first 2 bytes (even though only 7 bits
             # are necessary), since Voltage and Temperature are both 16-bit
             # values.
+            nodes = []
+            for node in database.nodes:
+                nodes.append(node.name)
             multiplexer = cantools.database.can.Signal(
                 name='BATTERY_VT_INDEX',
                 start=0,
                 length=16,
-                is_multiplexer=True
+                is_multiplexer=True,
+                receivers=nodes
             )
             results.append(multiplexer)
 
@@ -159,7 +163,8 @@ def main():
                     # The multiplexer is the Module index
                     multiplexer_signal=results[0],
                     is_float=False,
-                    decimal=None
+                    decimal=None,
+                    receivers=nodes
                 )
 
                 # The Temperature is the third field
@@ -173,7 +178,8 @@ def main():
                     # The multiplexer is the Module index
                     multiplexer_signal=results[0],
                     is_float=False,
-                    decimal=None
+                    decimal=None,
+                    receivers=nodes
                 )
 
                 results.append(voltage)
@@ -204,12 +210,18 @@ def main():
                 length=6,
                 signals=signals,
                 # The sender is the Message Source
-                senders=[can_frame.source]
+                senders=[can_frame.source],
+                bus_name='SYSTEM'
             )
             database.messages.append(message)
         else:
             total_length = 0
             signals = []
+
+            nodes = []
+            for node in database.nodes:
+                nodes.append(node.name)
+
             for index, field in enumerate(can_frame.fields):
                 length = FIELDS_LEN[can_frame.ftype]
 
@@ -239,7 +251,8 @@ def main():
                         name=field,
                         start=index*length,
                         length=length,
-                        is_signed=True
+                        is_signed=True,
+                        receivers=nodes
                     )
                 else:
                     # battery voltage is unsigned
@@ -247,7 +260,8 @@ def main():
                         name=field,
                         start=index*length,
                         length=length,
-                        is_signed=False
+                        is_signed=False,
+                        receivers=nodes
                     )
                 signals.append(signal)
                 total_length += length
@@ -262,7 +276,8 @@ def main():
                 length=total_length // 8,
                 signals=signals,
                 # The sender is the Message Source
-                senders=[can_frame.source]
+                senders=[can_frame.source],
+                bus_name='SYSTEM'
             )
             database.messages.append(message)
 
@@ -282,11 +297,14 @@ def main():
 
             # All ACK responders send a message containing a ACK_STATUS in
             # CANdlelight 1.0
+            nodes = []
+            for node in database.nodes:
+                nodes.append(node.name)
             signals = [
                 cantools.database.can.Signal(
                     name='{}_FROM_{}_ACK_STATUS'.format(msg_name, sender),
                     start=0,
-                    length=8
+                    length=8,
                 )
             ]
             # This ACK message is always length 1, since it just fits the
@@ -297,7 +315,8 @@ def main():
                 length=1,
                 signals=signals,
                 # The sender is the Message Source
-                senders=[sender]
+                senders=[sender],
+                bus_name='SYSTEM'
             )
             return message
 
@@ -314,6 +333,8 @@ def main():
     # Save as a DBC file
     with open('system_can.dbc', 'w') as file_handle:
         file_handle.write(database.as_dbc_string())
+    with open('system_can.kcd', 'w') as file_handle:
+        file_handle.write(database.as_kcd_string())
     return
 
 if __name__ == '__main__':
