@@ -101,7 +101,7 @@ msg {
 
 msg {
   id: 7
-  source: DRIVER_CONTROLS
+  source: DRIVER_CONTROLS_CENTER_CONSOLE
   # target: CHAOS
   msg_name: "power state"
   is_critical: true
@@ -115,7 +115,7 @@ msg {
 msg {
   id: 8
   source: CHAOS
-  # target: PLUTUS, MOTOR_CONTROLLER, DRIVER_CONTROLS
+  # target: PLUTUS, MOTOR_CONTROLLER, DRIVER_CONTROLS_CENTER_CONSOLE
   msg_name: "powertrain heartbeat"
   is_critical: true
   can_data {
@@ -127,7 +127,7 @@ msg {
 # IDs: 9-14 Reserved
 msg {
   id: 15
-  source: DRIVER_CONTROLS
+  source: DRIVER_CONTROLS_CENTER_CONSOLE
   # target: MOTOR_INTERFACE
   msg_name: "motor controller reset"
   can_data {
@@ -169,7 +169,7 @@ msg {
 
 msg {
   id: 18
-  source: DRIVER_CONTROLS
+  source: DRIVER_CONTROLS_CENTER_CONSOLE
   # target: MOTOR_INTERFACE
   msg_name: "drive output"
   can_data {
@@ -184,7 +184,7 @@ msg {
 
 msg {
   id: 19
-  source: DRIVER_CONTROLS
+  source: DRIVER_CONTROLS_CENTER_CONSOLE
   # target: DRIVER_DISPLAY
   msg_name: "cruise_target"
   can_data {
@@ -243,7 +243,7 @@ msg {
 
 msg {
   id: 24
-  source: DRIVER_CONTROLS
+  source: DRIVER_CONTROLS_CENTER_CONSOLE
   # target: LIGHTS
   msg_name: "lights state"
   can_data {
@@ -256,7 +256,7 @@ msg {
 
 msg {
   id: 25
-  source: DRIVER_CONTROLS
+  source: DRIVER_CONTROLS_CENTER_CONSOLE
   # target: LIGHTS
   msg_name: "horn"
   can_data {
@@ -293,17 +293,32 @@ msg {
 
 msg {
   id: 28
-  source: DRIVER_CONTROLS
-  # target: TELEMETRY
-  msg_name: "steering angle"
+  source: DRIVER_CONTROLS_STEERING
+  # target: DRIVER_CONTROLS_CENTER_CONSOLE
+  msg_name: "steering_output"
   can_data {
     u16 {
-      field_name_1: "steering_angle"
+      field_name_1: "control_stalk_analog_state"
+      field_name_2: "control_stalk_digital_state"
     }
   }
 }
 
-# IDs: 29-30 Reserved
+msg {
+  id: 29
+  source: DRIVER_CONTROLS_PEDAL
+  # target: DRIVER_CONTROLS_CENTER_CONSOLE
+  msg_name: "pedal_output"
+  can_data {
+    u16 {
+      field_name_1: "throttle"
+      field_name_2: "throttle_state"
+      field_name_3: "mech_brake"
+    }
+  }
+}
+
+# IDs: 30 Reserved
 
 msg {
   id: 31
