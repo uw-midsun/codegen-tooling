@@ -28,7 +28,7 @@ FIELDS_LEN = {
 # pylint: disable=W0511
 # TODO: Determine a way of encoding this in the ASCIIPB
 SIGNED_MESSAGES = [
-    'DRIVE_OUTPUT',
+    'DRIVE_OUTPUT_CENTER_CONSOLE',
     'CRUISE_TARGET',
     'BATTERY_AGGREGATE_VC',
     'MOTOR_VELOCITY'
