@@ -124,18 +124,7 @@ msg {
   }
 }
 
-# IDs: 9-14 Reserved
-msg {
-  id: 15
-  source: DRIVER_CONTROLS_CENTER_CONSOLE
-  # target: MOTOR_INTERFACE
-  msg_name: "motor controller reset"
-  can_data {
-    empty {
-    }
-  }
-}
-
+# IDs: 9-15 Reserved
 
 msg {
   id: 16
@@ -298,8 +287,8 @@ msg {
   msg_name: "steering_output"
   can_data {
     u16 {
-      field_name_1: "control_stalk_analog_state"
-      field_name_2: "control_stalk_digital_state"
+      field_name_1: "event_id"
+      field_name_2: "data"
     }
   }
 }
