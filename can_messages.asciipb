@@ -124,7 +124,19 @@ msg {
   }
 }
 
-# IDs: 9-15 Reserved
+# IDs: 9-14 Reserved
+
+msg {
+  id: 15
+  source: DRIVER_CONTROLS_CENTER_CONSOLE
+  # target: MOTOR_INTERFACE
+  msg_name: "motor controller reset"
+  can_data {
+    u8 {
+      field_name_1: "motor_controller"
+    }
+  }
+}
 
 msg {
   id: 16
