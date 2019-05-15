@@ -141,7 +141,7 @@ msg {
 msg {
   id: 16
   source: CHAOS
-  # target: DRIVER_DISPLAY, TELEMETRY
+  # target: DRIVER_CONTROLS_CENTER_CONSOLE, TELEMETRY
   msg_name: "ovuv dcdc aux"
   msg_readable_name: "ov uv dcdc and aux bat"
   can_data {
@@ -183,17 +183,7 @@ msg {
   }
 }
 
-msg {
-  id: 19
-  source: DRIVER_CONTROLS_CENTER_CONSOLE
-  # target: DRIVER_DISPLAY
-  msg_name: "cruise_target"
-  can_data {
-    u8 {
-      field_name_1: "target speed"
-    }
-  }
-}
+# IDs: 19 Reserved
 
 msg {
   id: 20
@@ -324,7 +314,7 @@ msg {
 msg {
   id: 31
   source: PLUTUS
-  # target: DRIVER_DISPLAY, TELEMETRY
+  # target: DRIVER_CONTROLS_CENTER_CONSOLE, TELEMETRY
   msg_name: "battery soc"
   can_data {
     empty {
@@ -335,7 +325,7 @@ msg {
 msg {
   id: 32
   source: PLUTUS
-  # target: DRIVER_DISPLAY, TELEMETRY
+  # target: DRIVER_CONTROLS_CENTER_CONSOLE, TELEMETRY
   msg_name: "battery vt"
   msg_readable_name: "battery voltage temperature"
   can_data {
@@ -350,7 +340,7 @@ msg {
 msg {
   id: 33
   source: PLUTUS
-  # target: DRIVER_DISPLAY, TELEMETRY
+  # target: DRIVER_CONTROLS_CENTER_CONSOLE, TELEMETRY
   msg_name: "battery aggregate vc"
   msg_readable_name: "battery aggregate voltage and current"
   can_data {
@@ -366,7 +356,7 @@ msg {
 msg {
   id: 35
   source: MOTOR_CONTROLLER
-  # target: DRIVER_DISPLAY, TELEMETRY
+  # target: DRIVER_CONTROLS_CENTER_CONSOLE, TELEMETRY
   msg_name: "motor controller vc"
   msg_readable_name: "motor controller voltage current"
   can_data {
@@ -382,7 +372,7 @@ msg {
 msg {
   id: 36
   source: MOTOR_CONTROLLER
-  # target: DRIVER_DISPLAY, TELEMETRY
+  # target: DRIVER_CONTROLS_CENTER_CONSOLE, TELEMETRY
   msg_name: "motor velocity"
   can_data {
     u16 {
@@ -433,7 +423,7 @@ msg {
 msg {
   id: 40
   source: MOTOR_CONTROLLER
-  # target: DRIVER_DISPLAY, TELEMETRY
+  # target: DRIVER_CONTROLS_CENTER_CONSOLE, TELEMETRY
   msg_name: "odometer"
   can_data {
     u32 {
@@ -476,7 +466,7 @@ msg {
 msg {
   id: 45
   source: SOLAR_MASTER_FRONT
-  # target: DRIVER_DISPLAY, TELEMETRY
+  # target: DRIVER_CONTROLS_CENTER_CONSOLE, TELEMETRY
   msg_name: "solar data front"
   can_data {
     u16 {
@@ -491,7 +481,7 @@ msg {
 msg {
   id: 46
   source: SOLAR_MASTER_REAR
-  # target: DRIVER_DISPLAY, TELEMETRY
+  # target: DRIVER_CONTROLS_CENTER_CONSOLE, TELEMETRY
   msg_name: "solar data rear"
   can_data {
     u16 {
