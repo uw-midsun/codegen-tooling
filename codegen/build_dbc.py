@@ -17,6 +17,9 @@ import data
 # The number of battery modules
 NUM_BATTERY_MODULES = 36
 
+# The number of solar slave modules
+NUM_SOLAR_SLAVE_MODULES = 6
+
 # Length of fields (in bits)
 FIELDS_LEN = {
     'u8': 8,
@@ -162,7 +165,7 @@ def main():
                     decimal=None
                 )
 
-                # The Temperature is the third field
+                # The temperature is the third field
                 temperature = cantools.database.can.Signal(
                     name='MODULE_TEMP_{0:03d}'.format(i),
                     start=32,
@@ -181,6 +184,82 @@ def main():
 
             return results
 
+        def get_muxed_solar_signal():
+            """
+            Get the MUXed signals for the Solar Sense Data message.
+            """
+            # The MUX'd message is formatted like this:
+            #
+            #  16-bits   16-bits   16-bits     16-bits
+            # +--------+---------+---------+-------------+
+            # |   id   | voltage | current | temperature |
+            # +--------+---------+---------+-------------+
+            #
+            # due to CANdlelight 1.0 alignment rules.
+            results = []
+
+            # Generate the signal used as the multiplexer. This is the `id`
+            # field comprising of the first 2 bytes (even though only 7 bits
+            # are necessary), since Voltage, Current, and Temperature are 16-bit
+            # values.
+            multiplexer = cantools.database.can.Signal(
+                name='SOLAR_SLAVE_INDEX',
+                start=0,
+                length=16,
+                is_multiplexer=True
+            )
+            results.append(multiplexer)
+
+            # Generate all the multiplexed signals for the Module Voltage, Current, and
+            # Temperatures
+            for i in range(NUM_SOLAR_SLAVE_MODULES):
+                # The voltage is the second signal field
+                voltage = cantools.database.can.Signal(
+                    name='MODULE_VOLTAGE_{0:03d}'.format(i),
+                    start=16,
+                    length=16,
+                    # The multiplexed ID is just the Cell Index
+                    multiplexer_ids=[i],
+                    # The multiplexer is the Module index
+                    multiplexer_signal=results[0],
+                    is_float=False,
+                    decimal=None
+                )
+
+                # The current is the third field
+                current = cantools.database.can.Signal(
+                    name='MODULE_CURRENT_{0:03d}'.format(i),
+                    start=32,
+                    length=16,
+                    byte_order='little_endian',
+                    # The multiplexed ID is just the Cell Index
+                    multiplexer_ids=[i],
+                    # The multiplexer is the Module index
+                    multiplexer_signal=results[0],
+                    is_float=False,
+                    decimal=None
+                )
+
+                # The temperature is the fourth field
+                temperature = cantools.database.can.Signal(
+                    name='MODULE_TEMP_{0:03d}'.format(i),
+                    start=48,
+                    length=16,
+                    byte_order='little_endian',
+                    # The multiplexed ID is just the Cell Index
+                    multiplexer_ids=[i],
+                    # The multiplexer is the Module index
+                    multiplexer_signal=results[0],
+                    is_float=False,
+                    decimal=None
+                )
+
+                results.append(voltage)
+                results.append(current)
+                results.append(temperature)
+
+            return results
+
         # All these message types must be Data messages. ACK messages are
         # currently handled implicitly by the protocol layer, and will be
         # generated based on whether or not it is an ACKable message.
@@ -194,19 +273,10 @@ def main():
         # that we currently do that uses MUXed data.
         if can_frame.msg_name == 'BATTERY_VT':
             signals = get_muxed_voltage_signal()
-
-            # It is safe to divide by 8 since every single message under the old
-            # protocol (aka. what I call CANdlelight 1.0) is byte-aligned. To be
-            # precise, it uses byte-alignment padding to fit 8, 4, 2, 1 bytes.
-            message = cantools.database.can.Message(
-                frame_id=frame_id,
-                name=can_frame.msg_name,
-                length=6,
-                signals=signals,
-                # The sender is the Message Source
-                senders=[can_frame.source]
-            )
-            database.messages.append(message)
+            total_length = 48
+        elif can_frame.msg_name in ['SOLAR_DATA_FRONT', 'SOLAR_DATA_REAR']:
+            signals = get_muxed_solar_signal()
+            total_length = 64
         else:
             total_length = 0
             signals = []
@@ -252,19 +322,19 @@ def main():
                 signals.append(signal)
                 total_length += length
 
-            # Note: It is safe to divide by 8 since every single message under
-            # the old protocol (aka. what I call CANdlelight 1.0) is
-            # byte-aligned. To be precise, it uses byte-alignment padding to
-            # fit 8, 4, 2, 1 bytes.
-            message = cantools.database.can.Message(
-                frame_id=frame_id,
-                name=can_frame.msg_name,
-                length=total_length // 8,
-                signals=signals,
-                # The sender is the Message Source
-                senders=[can_frame.source]
-            )
-            database.messages.append(message)
+        # Note: It is safe to divide by 8 since every single message under
+        # the old protocol (aka. what I call CANdlelight 1.0) is
+        # byte-aligned. To be precise, it uses byte-alignment padding to
+        # fit 8, 4, 2, 1 bytes.
+        message = cantools.database.can.Message(
+            frame_id=frame_id,
+            name=can_frame.msg_name,
+            length=total_length // 8,
+            signals=signals,
+            # The sender is the Message Source
+            senders=[can_frame.source]
+        )
+        database.messages.append(message)
 
         def get_ack(sender, msg_name, msg_id):
             """
