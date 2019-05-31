@@ -101,7 +101,7 @@ msg {
 
 msg {
   id: 7
-  source: DRIVER_CONTROLS
+  source: DRIVER_CONTROLS_PEDAL
   # target: CHAOS
   msg_name: "power state"
   is_critical: true
@@ -115,7 +115,7 @@ msg {
 msg {
   id: 8
   source: CHAOS
-  # target: PLUTUS, MOTOR_CONTROLLER, DRIVER_CONTROLS
+  # target: PLUTUS, MOTOR_CONTROLLER, DRIVER_CONTROLS_PEDAL
   msg_name: "powertrain heartbeat"
   is_critical: true
   can_data {
@@ -124,23 +124,12 @@ msg {
   }
 }
 
-# IDs: 9-14 Reserved
-msg {
-  id: 15
-  source: DRIVER_CONTROLS
-  # target: MOTOR_INTERFACE
-  msg_name: "motor controller reset"
-  can_data {
-    empty {
-    }
-  }
-}
-
+# IDs: 9-15 Reserved
 
 msg {
   id: 16
   source: CHAOS
-  # target: DRIVER_DISPLAY, TELEMETRY
+  # target: TELEMETRY
   msg_name: "ovuv dcdc aux"
   msg_readable_name: "ov uv dcdc and aux bat"
   can_data {
@@ -169,7 +158,7 @@ msg {
 
 msg {
   id: 18
-  source: DRIVER_CONTROLS
+  source: DRIVER_CONTROLS_PEDAL
   # target: MOTOR_INTERFACE
   msg_name: "drive output"
   can_data {
@@ -184,7 +173,7 @@ msg {
 
 msg {
   id: 19
-  source: DRIVER_CONTROLS
+  source: DRIVER_CONTROLS_PEDAL
   # target: DRIVER_DISPLAY
   msg_name: "cruise_target"
   can_data {
@@ -243,7 +232,7 @@ msg {
 
 msg {
   id: 24
-  source: DRIVER_CONTROLS
+  source: DRIVER_CONTROLS_PEDAL
   # target: LIGHTS
   msg_name: "lights state"
   can_data {
@@ -256,7 +245,7 @@ msg {
 
 msg {
   id: 25
-  source: DRIVER_CONTROLS
+  source: DRIVER_CONTROLS_PEDAL
   # target: LIGHTS
   msg_name: "horn"
   can_data {
@@ -293,22 +282,55 @@ msg {
 
 msg {
   id: 28
-  source: DRIVER_CONTROLS
-  # target: TELEMETRY
-  msg_name: "steering angle"
+  source: DRIVER_CONTROLS_STEERING
+  # target: DRIVER_CONTROLS_PEDAL
+  msg_name: "steering event"
   can_data {
     u16 {
-      field_name_1: "steering_angle"
+      field_name_1: "event_id"
+      field_name_2: "data"
     }
   }
 }
 
-# IDs: 29-30 Reserved
+msg {
+  id: 29
+  source: DRIVER_CONTROLS_CENTER_CONSOLE
+  # target: DRIVER_CONTROLS_PEDAL
+  msg_name: "center console event"
+  # Buttons:
+  #   * low beam
+  #   * daytime running lights
+  #   * hazards
+  #   * power
+  #   * drive
+  #   * neutral
+  #   * reverse
+  # 5V Monitor
+  can_data {
+    u16 {
+      field_name_1: "event_id"
+      field_name_2: "data"
+    }
+  }
+}
+
+msg {
+  id: 30
+  source: DRIVER_CONTROLS_PEDAL
+  # target: MOTOR_INTERFACE
+  msg_name: "motor controller reset"
+  can_data {
+    u8 {
+      field_name_1: "motor_controller_index"
+    }
+  }
+}
 
 msg {
   id: 31
   source: PLUTUS
-  # target: DRIVER_DISPLAY, TELEMETRY
+  # target: TELEMETRY
   msg_name: "battery soc"
   can_data {
     empty {
@@ -319,7 +341,7 @@ msg {
 msg {
   id: 32
   source: PLUTUS
-  # target: DRIVER_DISPLAY, TELEMETRY
+  # target: TELEMETRY
   msg_name: "battery vt"
   msg_readable_name: "battery voltage temperature"
   can_data {
@@ -334,7 +356,7 @@ msg {
 msg {
   id: 33
   source: PLUTUS
-  # target: DRIVER_DISPLAY, TELEMETRY
+  # target: TELEMETRY
   msg_name: "battery aggregate vc"
   msg_readable_name: "battery aggregate voltage and current"
   can_data {
@@ -350,7 +372,7 @@ msg {
 msg {
   id: 35
   source: MOTOR_CONTROLLER
-  # target: DRIVER_DISPLAY, TELEMETRY
+  # target: TELEMETRY
   msg_name: "motor controller vc"
   msg_readable_name: "motor controller voltage current"
   can_data {
@@ -366,7 +388,7 @@ msg {
 msg {
   id: 36
   source: MOTOR_CONTROLLER
-  # target: DRIVER_DISPLAY, TELEMETRY
+  # target: TELEMETRY
   msg_name: "motor velocity"
   can_data {
     u16 {
@@ -417,7 +439,7 @@ msg {
 msg {
   id: 40
   source: MOTOR_CONTROLLER
-  # target: DRIVER_DISPLAY, TELEMETRY
+  # target: TELEMETRY
   msg_name: "odometer"
   can_data {
     u32 {
@@ -460,7 +482,7 @@ msg {
 msg {
   id: 45
   source: SOLAR_MASTER_FRONT
-  # target: DRIVER_DISPLAY, TELEMETRY
+  # target: TELEMETRY
   msg_name: "solar data front"
   can_data {
     u16 {
@@ -475,7 +497,7 @@ msg {
 msg {
   id: 46
   source: SOLAR_MASTER_REAR
-  # target: DRIVER_DISPLAY, TELEMETRY
+  # target: TELEMETRY
   msg_name: "solar data rear"
   can_data {
     u16 {
