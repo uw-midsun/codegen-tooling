@@ -16,6 +16,9 @@ branches:
 before_install:
   - sudo apt-get -qq update
   - sudo apt-get install golang
+  # Upgrade Python packaging tools
+  - pip install --upgrade pip
+  - pip install --upgrade setuptools
 
 install:
   - pip install -r requirements.txt
