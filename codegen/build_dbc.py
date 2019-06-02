@@ -44,10 +44,10 @@ ACKABLE_MESSAGES = {
         'CHAOS',
         'LIGHTS_FRONT',
         'PLUTUS_SLAVE',
-        'DRIVER_CONTROLS'
+        'DRIVER_CONTROLS_PEDAL'
     ],
     1: [
-        'DRIVER_CONTROLS'
+        'DRIVER_CONTROLS_PEDAL'
     ],
     2: [
         'PLUTUS'
@@ -70,7 +70,7 @@ ACKABLE_MESSAGES = {
     8: [
         'PLUTUS',
         'MOTOR_CONTROLLER',
-        'DRIVER_CONTROLS'
+        'DRIVER_CONTROLS_PEDAL'
     ],
 }
 

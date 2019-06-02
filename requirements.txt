@@ -6,4 +6,4 @@ isort==4.2.15
 pylint==1.7.2
 nose==1.3.7
 parameterized==0.6.1
-cantools==32.11.2
+cantools==32.19.0
