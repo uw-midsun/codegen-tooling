@@ -1,4 +1,4 @@
-Mako==1.0.6
+Mako==1.2.2
 protobuf==3.2.0
 mock==2.0.0
 astroid==1.5.3
